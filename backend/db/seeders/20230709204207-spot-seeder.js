@@ -111,7 +111,7 @@ module.exports = {
         price: 2000,
     },
     {
-        ownerId: 1,
+        ownerId: 2,
         address: 'Pawnee, Indiana',
         city: 'Pawnee',
         state: 'Indiana',
@@ -123,7 +123,7 @@ module.exports = {
         price: 2100,
     },
     {
-        ownerId: 1,
+        ownerId: 2,
         address: '742 Evergreen Terrace',
         city: 'Springfield',
         state: 'Springfield',
@@ -135,7 +135,7 @@ module.exports = {
         price: 2200,
     },
     {
-        ownerId: 1,
+        ownerId: 2,
         address: 'Asgard, Nine Realms',
         city: 'Asgard',
         state: 'Asgard',
@@ -147,7 +147,7 @@ module.exports = {
         price: 2400,
     },
     {
-        ownerId: 1,
+        ownerId: 2,
         address: '221B Baker Street',
         city: 'London',
         state: 'London',
@@ -159,7 +159,7 @@ module.exports = {
         price: 2500,
     },
     {
-        ownerId: 1,
+        ownerId: 2,
         address: 'Atlantis',
         city: 'Atlantis',
         state: 'Atlantis',
@@ -171,7 +171,7 @@ module.exports = {
         price: 2600,
     },
     {
-        ownerId: 1,
+        ownerId: 3,
         address: 'Mars',
         city: 'Mars',
         state: 'Mars',
@@ -183,7 +183,7 @@ module.exports = {
         price: 2700,
     },
     {
-        ownerId: 1,
+        ownerId: 3,
         address: 'Mount Olympus',
         city: 'Olympus',
         state: 'Olympus',
@@ -195,7 +195,7 @@ module.exports = {
         price: 2800,
     },
     {
-        ownerId: 1,
+        ownerId: 3,
         address: 'Narnia',
         city: 'Narnia',
         state: 'Narnia',
@@ -207,7 +207,7 @@ module.exports = {
         price: 2900,
     },
     {
-        ownerId: 1,
+        ownerId: 3,
         address: 'Skull Island',
         city: 'Skull',
         state: 'Skull',
@@ -219,7 +219,7 @@ module.exports = {
         price: 3000,
     },
     {
-        ownerId: 1,
+        ownerId: 3,
         address: 'Camp Crystal Lake',
         city: 'Crystal Lake',
         state: 'New Jersey',
@@ -231,7 +231,7 @@ module.exports = {
         price: 3100,
     },
     {
-        ownerId: 1,
+        ownerId: 3,
         address: '221B Baker Street',
         city: 'London',
         state: 'London',
@@ -243,7 +243,7 @@ module.exports = {
         price: 3200,
     },
     {
-        ownerId: 1,
+        ownerId: 4,
         address: 'Xavier\'s School for Gifted Youngsters',
         city: 'Salem Center',
         state: 'New York',
@@ -255,7 +255,7 @@ module.exports = {
         price: 3300,
     },
     {
-        ownerId: 1,
+        ownerId: 4,
         address: 'Krypton',
         city: 'Krypton',
         state: 'Krypton',
@@ -267,7 +267,7 @@ module.exports = {
         price: 3400,
     },
     {
-        ownerId: 1,
+        ownerId: 4,
         address: 'Star City',
         city: 'Star',
         state: 'Star',
@@ -279,7 +279,7 @@ module.exports = {
         price: 3500,
     },
     {
-        ownerId: 1,
+        ownerId: 4,
         address: '123 Cherry Tree Lane',
         city: 'London',
         state: 'London',
@@ -291,7 +291,7 @@ module.exports = {
         price: 2300,
     },
     {
-        ownerId: 1,
+        ownerId: 4,
         address: '42 Wallaby Way',
         city: 'Sydney',
         state: 'New South Wales',
@@ -303,7 +303,7 @@ module.exports = {
         price: 2000,
     },
     {
-        ownerId: 1,
+        ownerId: 4,
         address: 'Endor',
         city: 'Endor',
         state: 'Endor',
@@ -315,7 +315,7 @@ module.exports = {
         price: 3000,
     },
     {
-        ownerId: 1,
+        ownerId: 4,
         address: 'Emerald City',
         city: 'Oz',
         state: 'Oz',
