@@ -224,13 +224,13 @@ module.exports = {
             endDate: '2024-02-13',
         },
         {
-            spotId: 27,
+            spotId: 26,
             userId: 3,
             startDate: '2024-02-15',
             endDate: '2024-02-19',
         },
         {
-            spotId: 28,
+            spotId: 26,
             userId: 4,
             startDate: '2024-02-21',
             endDate: '2024-02-25',
@@ -248,13 +248,13 @@ module.exports = {
             endDate: '2024-03-14',
         },
         {
-            spotId: 27,
+            spotId: 22,
             userId: 4,
             startDate: '2024-03-16',
             endDate: '2024-03-20',
         },
         {
-            spotId: 28,
+            spotId: 22,
             userId: 3,
             startDate: '2024-03-22',
             endDate: '2024-03-27',
@@ -272,13 +272,13 @@ module.exports = {
             endDate: '2024-04-09',
         },
         {
-            spotId: 27,
+            spotId: 24,
             userId: 1,
             startDate: '2024-04-11',
             endDate: '2024-04-15',
         },
         {
-            spotId: 28,
+            spotId: 21,
             userId: 2,
             startDate: '2024-04-17',
             endDate: '2024-04-22',
