@@ -330,7 +330,7 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-
-    await queryInterface.bulkDelete('Spots', null, options)
+    options.tableName = 'Spots';
+    await queryInterface.bulkDelete(options)
   }
 };
