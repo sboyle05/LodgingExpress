@@ -9,21 +9,34 @@ module.exports = (sequelize, DataTypes) => {
       User.belongsToMany(models.Spot, {
         through: models.Booking,
         foreignKey: 'userId',
-        otherKey: 'spotId'
+        otherKey: 'spotId',
+        onDelete: 'CASCADE',
+        hooks: true
       }),
       User.belongsToMany(models.Spot, {
         through: models.Review,
         foreignKey: 'userId',
-        otherKey: 'spotId'
+        otherKey: 'spotId',
+        onDelete: 'CASCADE',
+        hooks: true
       }),
       User.hasMany(models.Spot, {
-        foreignKey: 'ownerId'
+        foreignKey: 'ownerId',
+        onDelete: 'CASCADE',
+        hooks: true
+
       })
     }
   };
 
   User.init(
     {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: DataTypes.INTEGER
+      },
       username: {
         type: DataTypes.STRING,
         allowNull: false,
