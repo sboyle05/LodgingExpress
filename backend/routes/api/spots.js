@@ -144,7 +144,7 @@ router.post('/:spotId/reviews', validateReview, requireAuth, async (req, res, ne
     const { review, stars } = req.body;
     const newReview = await Review.create({userId, spotId, review, stars})
 
-    return res.json(newReview)
+    return res.status(201).json(newReview)
 })
 
 router.post('/:spotId/images', requireAuth, async (req, res, next) => {
@@ -165,7 +165,7 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
         })
     }
     const newSpotImage = await SpotImage.create({spotId: selectedSpotId, url, preview})
-    return res.json(newSpotImage)
+    return res.status(201).json(newSpotImage)
 })
 
 
@@ -207,7 +207,7 @@ router.post('/', validatePost, requireAuth, async (req, res, next) => {
     const  { address, city, state, country, lat, lng, name, description, price} = req.body;
     const ownerId = req.user.id;
     const newSpot = await Spot.create({ownerId, address, city, state, country, lat, lng, name, description, price});
-    return res.json(newSpot)
+    return res.status(201).json(newSpot)
 })
 
 
@@ -294,12 +294,19 @@ router.put('/:spotId', requireAuth, async (req, res, next) => {
 router.delete('/:spotId', requireAuth, async (req, res, next) => {
     const spot = await Spot.findByPk(req.params.spotId);
     if(!spot){
-        res.status(404).json({
+        return res.status(404).json({
             "message": "Spot couldn't be found"
            })
     }
+    const owner = spot.ownerId;
+    const currentUser = req.user.id;
+    if(owner !== currentUser){
+        return res.status(403).json({
+            "message": "Current user is prohibited from accessing the selected data"
+        })
+    }
     await spot.destroy();
-    res.json({
+    return res.json({
         "message": "Successfully deleted"
     })
 })
