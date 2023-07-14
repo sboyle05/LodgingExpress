@@ -446,26 +446,32 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
 })
 
 
+
+function isNumeric(str) {
+    if (!str) return false; // this handles "", null, undefined, etc.
+    return !isNaN(str) && !isNaN(parseFloat(str));
+}
+
 router.get('/', async (req, res, next) => {
     // Need to parse query parameters
-    let page = parseInt(req.query.page) || 1;
-    let size = parseInt(req.query.size) || 20;
-    let minLat = parseFloat(req.query.minLat);
-    let maxLat = parseFloat(req.query.maxLat);
-    let minLng = parseFloat(req.query.minLng);
-    let maxLng = parseFloat(req.query.maxLng);
-    let minPrice = parseFloat(req.query.minPrice);
-    let maxPrice = parseFloat(req.query.maxPrice);
+    let page = req.query.page || "1";
+    let size = req.query.size || "20";
+    let minLat = req.query.minLat;
+    let maxLat = req.query.maxLat;
+    let minLng = req.query.minLng;
+    let maxLng = req.query.maxLng;
+    let minPrice = req.query.minPrice;
+    let maxPrice = req.query.maxPrice;
 
     let errors = {};
-if (isNaN(page) || page < 1 || page > 10) errors.page = "Page must be greater than or equal to 1";
-if (isNaN(size) || size < 1 || size > 20) errors.size = "Size must be greater than or equal to 1";
-if (minLat && isNaN(minLat)) errors.minLat = "Minimum latitude is invalid";
-if (maxLat && isNaN(maxLat)) errors.maxLat = "Maximum latitude is invalid";
-if (minLng && isNaN(minLng)) errors.minLng = "Minimum longitude is invalid";
-if (maxLng && isNaN(maxLng)) errors.maxLng = "Maximum longitude is invalid";
-if (minPrice != null && (isNaN(minPrice) || minPrice < 0)) errors.minPrice = "Minimum price must be greater than or equal to 0";
-if (maxPrice != null && (isNaN(maxPrice) || maxPrice < 0)) errors.maxPrice = "Maximum price must be greater than or equal to 0";
+    if (!isNumeric(page) || page < 1 || page > 10) errors.page = "Page must be greater than or equal to 1 or less than 10";
+    if (!isNumeric(size) || size < 1 || size > 20) errors.size = "Size must be greater than or equal to 1 or less than 20 ";
+    if (minLat && !isNumeric(minLat)) errors.minLat = "Minimum latitude is invalid";
+    if (maxLat && !isNumeric(maxLat)) errors.maxLat = "Maximum latitude is invalid";
+    if (minLng && !isNumeric(minLng)) errors.minLng = "Minimum longitude is invalid";
+    if (maxLng && !isNumeric(maxLng)) errors.maxLng = "Maximum longitude is invalid";
+    if (minPrice != null && (!isNumeric(minPrice) || minPrice < 0)) errors.minPrice = "Minimum price must be greater than or equal to 0";
+    if (maxPrice != null && (!isNumeric(maxPrice) || maxPrice < 0)) errors.maxPrice = "Maximum price must be greater than or equal to 0";
 
     if(Object.keys(errors).length > 0){
         return res.status(400).json({
