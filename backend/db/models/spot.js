@@ -65,6 +65,18 @@ module.exports = (sequelize, DataTypes) => {
      const average = sum / reviews.length;
      return parseFloat(average.toFixed(1)); //parsefloat converts the result back to a number, otherwise would be a string.
     }
+    async getNumReviews(){
+      const reviews = await this.constructor.Review.findAll({
+        where: {
+          spotId: this.id,
+        },
+      })
+      if (reviews.length === 0) {
+        return null;
+      }
+      const totalReviews = reviews.length;
+      return totalReviews
+    }
   }
   Spot.init({
     id: {
