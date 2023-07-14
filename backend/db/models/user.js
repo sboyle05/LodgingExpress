@@ -10,21 +10,30 @@ module.exports = (sequelize, DataTypes) => {
         through: models.Booking,
         foreignKey: 'userId',
         otherKey: 'spotId',
-        onDelete: 'CASCADE',
-        hooks: true
+        // onDelete: 'CASCADE',
+        // hooks: true
       }),
       User.belongsToMany(models.Spot, {
         through: models.Review,
         foreignKey: 'userId',
         otherKey: 'spotId',
-        onDelete: 'CASCADE',
-        hooks: true
+        // onDelete: 'CASCADE',
+        // hooks: true
       }),
       User.hasMany(models.Spot, {
         foreignKey: 'ownerId',
         onDelete: 'CASCADE',
         hooks: true
-
+      }),
+      User.hasMany(models.Review, {
+        foreignKey: 'userId',
+        onDelete: 'CASCADE',
+        hooks: true
+      }),
+      User.hasMany(models.Booking, {
+        foreignKey: 'userId',
+        onDelete: 'CASCADE',
+        hooks: true
       })
     }
   };
