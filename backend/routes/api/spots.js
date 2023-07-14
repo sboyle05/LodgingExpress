@@ -447,7 +447,51 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
 
 
 router.get('/', async (req, res, next) => {
-    const allSpots = await Spot.findAll({});
+    // Need to parse query parameters
+    let page = parseInt(req.query.page) || 1;
+    let size = parseInt(req.query.size) || 20;
+    let minLat = parseFloat(req.query.minLat);
+    let maxLat = parseFloat(req.query.maxLat);
+    let minLng = parseFloat(req.query.minLng);
+    let maxLng = parseFloat(req.query.maxLng);
+    let minPrice = parseFloat(req.query.minPrice);
+    let maxPrice = parseFloat(req.query.maxPrice);
+
+    let errors = {};
+if (isNaN(page) || page < 1 || page > 10) errors.page = "Page must be greater than or equal to 1";
+if (isNaN(size) || size < 1 || size > 20) errors.size = "Size must be greater than or equal to 1";
+if (minLat && isNaN(minLat)) errors.minLat = "Minimum latitude is invalid";
+if (maxLat && isNaN(maxLat)) errors.maxLat = "Maximum latitude is invalid";
+if (minLng && isNaN(minLng)) errors.minLng = "Minimum longitude is invalid";
+if (maxLng && isNaN(maxLng)) errors.maxLng = "Maximum longitude is invalid";
+if (minPrice != null && (isNaN(minPrice) || minPrice < 0)) errors.minPrice = "Minimum price must be greater than or equal to 0";
+if (maxPrice != null && (isNaN(maxPrice) || maxPrice < 0)) errors.maxPrice = "Maximum price must be greater than or equal to 0";
+
+    if(Object.keys(errors).length > 0){
+        return res.status(400).json({
+            "message": "Bad Request",
+            "errors": errors
+        });
+    }
+
+
+    let offset = (page - 1) * size;
+
+
+    let options = {
+        limit: size,
+        offset: offset
+    };
+
+
+    let whereConditions = {};
+    if (!isNaN(minLat) && !isNaN(maxLat)) whereConditions.lat = { [Op.between]: [minLat, maxLat] };
+    if (!isNaN(minLng) && !isNaN(maxLng)) whereConditions.lng = { [Op.between]: [minLng, maxLng] };
+    if (!isNaN(minPrice) && !isNaN(maxPrice)) whereConditions.price = { [Op.between]: [minPrice, maxPrice] };
+    if (Object.keys(whereConditions).length > 0) options.where = whereConditions;
+
+
+    const allSpots = await Spot.findAll(options);
 
     const spotsWithImagesAndRating = await Promise.all(
         allSpots.map(async (spot) => {
@@ -458,12 +502,13 @@ router.get('/', async (req, res, next) => {
 
 
             const averageRating = await spot.getAverageRating();
-            return {...spot.get(),
+            return {
+                    ...spot.get(),
                     avgRating: averageRating,
                     previewImage: images.length > 0 ? images[0].url : null,
                 }
     }))
-    res.json(spotsWithImagesAndRating)
+    res.json({Spots: spotsWithImagesAndRating, page: page, size: size})
 })
 
 
