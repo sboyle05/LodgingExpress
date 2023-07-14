@@ -58,13 +58,6 @@ router.get('/current', requireAuth, async (req, res, next) => {
             },
             {
                 model:Spot,
-                include: [
-                    {
-                        model: SpotImage,
-                        as: 'previewImage',
-                        limit: 1
-                    }
-                ],
                 attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price' ]
             },
             {
@@ -73,12 +66,18 @@ router.get('/current', requireAuth, async (req, res, next) => {
             }
         ],
     });
-    const reviewsWithDetails = allReviews.map(review => {
+
+    const reviewsWithDetails = await Promise.all(allReviews.map(async review => {
         const user = review.User;
         const spot = review.Spot;
         let reviewImages = review.ReviewImages;
 
-        spot.previewImage = spot.previewImage.length > 0 ? spot.previewImage[0].url : null;
+
+        const spotImage = await SpotImage.findOne({
+            where: {spotId: spot.id},
+            attributes: ['url'],
+            limit: 1
+        });
 
         reviewImages = reviewImages.map(image => {
             return {
@@ -89,10 +88,14 @@ router.get('/current', requireAuth, async (req, res, next) => {
         return {
             ...review.get(),
             User: user,
-            Spot: spot,
+            Spot: {
+                ...spot.get(),
+                previewImage: spotImage ? spotImage.url : null
+            },
             ReviewImages: reviewImages
         }
-    })
+    }));
+
     res.json({ Reviews: reviewsWithDetails})
 })
 
@@ -101,7 +104,7 @@ router.put('/:reviewId', requireAuth, async (req, res, next) => {
     const currentUser = req.user.id;
     const selectedReview = req.params.reviewId;
     const reviewId = await Review.findByPk(selectedReview)
-    const reviewOwner = reviewId.userId;
+
 
 
     if(!reviewId){
@@ -109,6 +112,7 @@ router.put('/:reviewId', requireAuth, async (req, res, next) => {
             "message": "Review couldn't be found"
         })
     }
+    const reviewOwner = reviewId.userId;
     if(reviewOwner !== currentUser){
         res.status(403).json({
             "message": "Current user is prohibited from accessing the selected data"

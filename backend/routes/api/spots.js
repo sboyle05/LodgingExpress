@@ -227,10 +227,11 @@ router.get('/:spotId', async (req, res, next) => {
             where: { spotId: spotById.id, preview: true},
         })
         const averageRating = await spotById.getAverageRating();
-
+        const numReviews = await spotById.getNumReviews();
         const spotData = {
             ...spotById.get(),
             avgRating: averageRating,
+            numReviews: numReviews,
             SpotImages: images.map(image => ({
                 id: image.id,
                 url: image.url,
@@ -349,7 +350,7 @@ router.put('/:spotId', requireAuth, async (req, res, next) => {
     const currentUser = req.user.id;
     const selectedSpotId = req.params.spotId;
     const editedSpot = await Spot.findByPk(selectedSpotId);
-    const owner = editedSpot.ownerId
+
 
     let errors = {}
     if(!editedSpot){
@@ -357,7 +358,7 @@ router.put('/:spotId', requireAuth, async (req, res, next) => {
             "message": "Spot couldn't be found"
            })
     }
-
+    const owner = editedSpot.ownerId
     if(currentUser !== owner) {
         res.status(403).json({
             "message": "Current user is prohibited from accessing the selected data"
@@ -480,22 +481,18 @@ router.get('/', async (req, res, next) => {
         });
     }
 
-
     let offset = (page - 1) * size;
-
 
     let options = {
         limit: size,
         offset: offset
     };
 
-
     let whereConditions = {};
     if (!isNaN(minLat) && !isNaN(maxLat)) whereConditions.lat = { [Op.between]: [minLat, maxLat] };
     if (!isNaN(minLng) && !isNaN(maxLng)) whereConditions.lng = { [Op.between]: [minLng, maxLng] };
     if (!isNaN(minPrice) && !isNaN(maxPrice)) whereConditions.price = { [Op.between]: [minPrice, maxPrice] };
     if (Object.keys(whereConditions).length > 0) options.where = whereConditions;
-
 
     const allSpots = await Spot.findAll(options);
 

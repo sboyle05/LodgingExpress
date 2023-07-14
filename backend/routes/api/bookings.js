@@ -57,13 +57,14 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
     const bookingId = req.params.bookingId;
     const currentUser = req.user.id;
     const editedBooking = await Booking.findByPk(bookingId);
-    const owner = editedBooking.userId
+
 
     if(!editedBooking){
         res.status(404).json({
             "message": "Booking couldn't be found"
         })
     }
+    const owner = editedBooking.userId
     if(currentUser !== owner){
         res.status(403).json({
             "message": "Current user is prohibited from accessing the selected data"
