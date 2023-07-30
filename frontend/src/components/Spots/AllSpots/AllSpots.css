@@ -1,0 +1,27 @@
+
+
+.AllSpots {
+    /* border: 5px black solid; */
+    color: rgb(144, 36, 36);
+    /* padding-bottom: 200px; */
+    justify-content: center;
+    margin: 10px;
+
+
+}
+
+.AllSpotsContainer {
+    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+/* .AllSpotsContainer{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+
+} */

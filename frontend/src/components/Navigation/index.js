@@ -8,6 +8,7 @@ import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import "./Navigation.css";
 
+
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
 
@@ -34,7 +35,7 @@ function Navigation({ isLoaded }) {
   }
 
   return (
-    <ul>
+    <ul className="ulNav">
       <li>
         <NavLink exact to="/">
           Home

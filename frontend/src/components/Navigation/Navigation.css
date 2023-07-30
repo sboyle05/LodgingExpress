@@ -1,3 +1,8 @@
 .hidden{
     display: none
 }
+
+.ulNav {
+    border-bottom: 2px grey solid;
+    padding-bottom: 20px;
+}
