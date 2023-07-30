@@ -5,6 +5,7 @@ import { Route, Switch } from "react-router-dom";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import AllSpots from "./components/Spots/AllSpots";
+import SingleSpot from "./components/SingleSpot";
 
 function App() {
   const dispatch = useDispatch();
@@ -17,9 +18,9 @@ function App() {
     <>
       <Navigation isLoaded={isLoaded} />
       {isLoaded && <Switch>
-        <AllSpots>
-        </AllSpots>
+        <Route exact path='/' component={AllSpots}></Route>
         <Route path="/login"></Route>
+        <Route path='/spots/:spotId' component={SingleSpot}></Route>
         <Route path="/signup"></Route>
         </Switch>}
     </>

@@ -2,6 +2,7 @@
 
 export const LOAD_SPOTS = 'spots/LOAD_SPOTS';
 
+export const RECEIVE_SPOT = 'spots/RECEIVE_SPOT';
 
 
 /**  Action Creators: */
@@ -10,6 +11,10 @@ export const loadSpots = (spots) => ({
     spots,
   });
 
+export const receiveSpot = (spot) => ({
+    type: RECEIVE_SPOT,
+    spot,
+});
 
 
 /** Thunk Action Creators: */
@@ -25,7 +30,19 @@ export const fetchSpots = () => async (dispatch) => {
 
 }
 
-
+export const fetchReceiveSpot = (spotId) => async (dispatch) => {
+    const response = await fetch (`/api/spots/${spotId}`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+    });
+    if(response.ok){
+        const spot = await response.json()
+        dispatch(receiveSpot(spot))
+    } else{
+        const error = await response.json()
+        return error
+    }
+}
 
 /**SPOTS REDUCER */
 // const initialState = {spots: []}
@@ -39,6 +56,8 @@ const spotsReducer = (state = {}, action) => {
                 spotsState[spot.id] = spot;
             });
             return spotsState
+            case RECEIVE_SPOT:
+                return { ...state, [action.spot.id]: action.spot };
 
     default:
         return state;

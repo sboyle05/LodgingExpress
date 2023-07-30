@@ -35,14 +35,14 @@ function Navigation({ isLoaded }) {
   }
 
   return (
-    <ul className="ulNav">
-      <li>
-        <NavLink exact to="/">
-          Home
+    <section className="ulNav">
+
+        <NavLink className="lodgingExpress" exact to="/">
+          Lodging Express
         </NavLink>
-      </li>
+
       {isLoaded && sessionLinks}
-    </ul>
+    </section>
   );
 }
 

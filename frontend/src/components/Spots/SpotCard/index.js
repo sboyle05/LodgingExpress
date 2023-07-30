@@ -17,7 +17,7 @@ const SpotCard = ({spot}) => {
         <h3><i className="fa-solid fa-star"></i> {`${spot.avgRating}`}</h3>
 
         </section>
-        <h3>{`$${spot.price} per night`}</h3>
+        <h3 className="price">{`$${spot.price} night`}</h3>
     </section>
 
 
