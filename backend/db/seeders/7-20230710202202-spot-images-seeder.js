@@ -23,7 +23,7 @@ module.exports = {
       },
       {
         spotId: 3,
-        url: 'https://source.unsplash.com/random/?poohbear',
+        url: 'https://news.airbnb.com/wp-content/uploads/sites/4/2021/09/winnie_the_pooh-08_Social.jpg?fit=1200%2C628?w=876',
         preview: true,
       },
       {
