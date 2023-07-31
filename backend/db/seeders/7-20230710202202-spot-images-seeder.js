@@ -13,7 +13,7 @@ module.exports = {
       {
 
         spotId: 1,
-        url: 'https://source.unsplash.com/random/?hobbiton',
+        url: 'https://www.nztravelorganiser.com/wp-content/uploads/2019/09/hobbiton-1024x683.jpg',
         preview: true,
       },
       {
@@ -28,12 +28,12 @@ module.exports = {
       },
       {
         spotId: 4,
-        url: 'https://source.unsplash.com/random/?hogwartsexpress',
+        url: 'https://blog.discoveruniversal.com/wp-content/uploads/2021/08/HogwartsExpress.jpg',
         preview: true,
       },
       {
         spotId: 5,
-        url: 'https://source.unsplash.com/random/?bakerstreet',
+        url: 'https://i.pinimg.com/originals/0d/2a/bf/0d2abf0b2dba41e9190e07342d10c185.jpg',
         preview: true,
       },
       {
@@ -68,7 +68,7 @@ module.exports = {
       },
       {
         spotId: 12,
-        url: 'https://blogs.smithsonianmag.com/design/files/2012/07/221_sh-museum.jpg',
+        url: 'https://media.cnn.com/api/v1/images/stellar/prod/200823040054-tower-bridge-open-0822.jpg?q=w_2000,h_1333,x_0,y_58,c_crop',
         preview: true,
       },
       {
@@ -103,7 +103,7 @@ module.exports = {
       },
       {
         spotId: 19,
-        url: 'https://source.unsplash.com/random/?bakerstreet',
+        url: 'https://static1.mansionglobal.com/production/media/article-images/5e01e20345927c3eda7eee194e1863fd/large_CHAMONIX_EXTERIOR_2-DUSK.jpg',
         preview: true,
       },
       {
