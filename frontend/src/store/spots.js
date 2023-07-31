@@ -4,7 +4,7 @@ export const LOAD_SPOTS = 'spots/LOAD_SPOTS';
 
 export const RECEIVE_SPOT = 'spots/RECEIVE_SPOT';
 
-
+export const UPDATE_SPOT = 'spots/UPDATE_SPOT';
 /**  Action Creators: */
 export const loadSpots = (spots) => ({
     type: LOAD_SPOTS,
@@ -16,7 +16,10 @@ export const receiveSpot = (spot) => ({
     spot,
 });
 
-
+export const editSpot = (spot) => ({
+    type: UPDATE_SPOT,
+    spot,
+})
 /** Thunk Action Creators: */
 
 export const fetchSpots = () => async (dispatch) => {
@@ -44,6 +47,41 @@ export const fetchReceiveSpot = (spotId) => async (dispatch) => {
     }
 }
 
+export const createSpot = (spot) => async (dispatch) => {
+    const response = await fetch('/api/spots', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(spot)
+    });
+    if(response.ok){
+        const newSpot = await response.json()
+        dispatch(receiveSpot(newSpot))
+        return newSpot
+    } else {
+        const error = await response.json()
+        return error
+    }
+}
+
+export const updateSpot = (spot) => async (dispatch) => {
+    const response = await fetch(`/api/reports/${spot.id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(spot)
+    });
+    if(response.ok){
+     const updatedSpot = await response.json()
+      dispatch(editSpot(updatedSpot))
+      return updatedSpot
+    }
+    else {
+      const error = await response.json()
+      return error
+    }
+  }
+
+
+
 /**SPOTS REDUCER */
 // const initialState = { entries: [], isLoading: true };
 const spotsReducer = (state = {}, action) => {
@@ -58,7 +96,8 @@ const spotsReducer = (state = {}, action) => {
             return spotsState
             case RECEIVE_SPOT:
                 return { ...state, [action.spot.id]: action.spot };
-
+            case UPDATE_SPOT:
+                return {...state, [action.spot.id]: action.spot};
     default:
         return state;
     }
