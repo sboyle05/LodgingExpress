@@ -5,6 +5,7 @@ import { fetchSpots } from "../../../store/spots";
 import { Link } from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import { useEffect } from 'react';
+import { Switch } from "react-router-dom/cjs/react-router-dom.min";
 
 
 const AllSpots =() => {
@@ -21,9 +22,14 @@ const AllSpots =() => {
 
         <section className="AllSpotsContainer">
             {spots.map((spot) => (
+
+                <Link to={`/spots/${spot.id}`}
+                key={spot.id}>
                 <SpotCard
                 spot={spot}
                 key={spot.id}/>
+                </Link>
+
             ))}
         </section>
 

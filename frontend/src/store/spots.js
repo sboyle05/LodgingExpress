@@ -45,7 +45,7 @@ export const fetchReceiveSpot = (spotId) => async (dispatch) => {
 }
 
 /**SPOTS REDUCER */
-// const initialState = {spots: []}
+// const initialState = { entries: [], isLoading: true };
 const spotsReducer = (state = {}, action) => {
     switch (action.type) {
         case LOAD_SPOTS:

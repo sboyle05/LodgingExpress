@@ -23,7 +23,7 @@ const SingleSpot = ()=> {
         e.preventDefault();
         history.push(`/spots/${goToSpot}`);
     }
-    if(!spot)return null;
+    if(!spot || !spot.Owner)return null;
 
     return (
         <section className="singleSpot">
@@ -38,16 +38,28 @@ const SingleSpot = ()=> {
             </section>
             <section className="spotInfo">
                     <section className="owner_des">
-                    <p className="ownerInfo">Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</p>
-                    <p className="spotDescription">{spot.description}</p>
+                    <div className="ownerInfo">Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</div>
+                    <div className="spotDescription">{spot.description}</div>
                     </section>
-                    <section className="price_reserve">
-                    <p>{spot.price} night</p>
-                    <p><i className="fa-solid fa-star"></i>{spot.avgRating} &#x2022; {spot.numReviews} reviews</p>
+                    <section className="price_reserveButContainer">
+
+                        <section className="priceAndReviews">
+                    <div>${spot.price} night</div>
+
+                    <div><i className="fa-solid fa-star"></i>{spot.avgRating} &#x2022;
+                    {spot.numReviews > 1
+                    ? <span>{spot.numReviews} reviews</span>
+                    : spot.numReviews === 1
+                    ? <span> {spot.numReviews} review</span>
+                    : <span>no reviews yet</span>
+                    }</div>
+                    </section>
+                    <button>Reserve</button>
                     </section>
             </section>
-            <section className="reviews">
 
+            <section className="reviews">
+                <span><h1>review text will go here</h1></span>
             </section>
         </section>
     )
