@@ -33,7 +33,9 @@ const SingleSpot = ()=> {
             </section>
             <section className="spotImages">
             {Array.isArray(spot.SpotImages) && spot.SpotImages.map((image, index) => (
-                <img key={index} src={image.url} alt={`${spot.name} ${index + 1}`} />
+                <img
+                className={index === 0 ? "large-image" : "small-image"}
+                key={index} src={image.url} alt={`${spot.name} ${index + 1}`} />
             ))}
             </section>
             <section className="spotInfo">

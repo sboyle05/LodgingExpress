@@ -44,14 +44,15 @@ const SpotForm = ({spot, spotImages, formType}) => {
             {url: image4,
             preview: false
             },
+        ];
 
-        ]
         let submitSpot;
         if(formType === "Update Spot"){
             submitSpot = await dispatch(updateSpot(spot))
         } else{
             submitSpot = await dispatch(createSpot(spot, spotImages))
         }
+        console.log("submitSpot::::", submitSpot)
         if(submitSpot.errors) return setErrors(submitSpot.errors)
         if (submitSpot){
             history.push(`/spots/${submitSpot.id}`)
@@ -74,7 +75,7 @@ const SpotForm = ({spot, spotImages, formType}) => {
         <section className='locationDetails'>
         <section className='country'>
         <h3>
-        Country</h3>
+        Country</h3><span className="errors">{errors.country}</span>
         <input
         type="text"
         value={country}
@@ -93,38 +94,38 @@ const SpotForm = ({spot, spotImages, formType}) => {
         </section>
         <section className='cityState'>
         <span>
-        City
+        City</span><span className="errors">{errors.city}</span>
         <input
         type='text'
         value={city}
         placeholder='City'
         onChange={(e)=> setCity(e.target.value)}></input>
-        </span>
+
         <span>
-        State
+        State</span><span className="errors">{errors.state}</span>
         <input
         type='text'
         value={state}
         placeholder='STATE'
         onChange={(e)=> setState(e.target.value)}></input>
-        </span>
+
         </section>
         <h3>
-        Latitude
+        Latitude</h3><span className="errors">{errors.lat}</span>
         <input
         type='number'
         value={lat}
         placeholder='Latitude'
         onChange={(e)=> setLat(e.target.value)}></input>
-        </h3>
+
         <h3>
-        lngitude
+        longitude</h3><span className="errors">{errors.lng}</span>
         <input
         type='number'
         value={lng}
         placeholder='lngitude'
         onChange={(e)=> setLng(e.target.value)}></input>
-        </h3>
+
         </section>
         <section className='description'>
         <h2>
@@ -137,7 +138,7 @@ const SpotForm = ({spot, spotImages, formType}) => {
         placeholder='What makes your spot, THE SPOT?'
         onChange={(e)=> setDescription(e.target.value)}></textarea>
 
-        </section>
+        </section><span className="errors">{errors.description}</span>
         <section className='spotName'>
         <h2>
         Create a title for your spot</h2>
@@ -145,7 +146,7 @@ const SpotForm = ({spot, spotImages, formType}) => {
         type='text'
         value={name}
         placeholder='Name of your spot'
-        onChange={(e)=> setName(e.target.value)}></input>
+        onChange={(e)=> setName(e.target.value)}></input><span className="errors">{errors.name}</span>
 
         </section>
         <section className='price'>
@@ -158,7 +159,7 @@ const SpotForm = ({spot, spotImages, formType}) => {
         onChange={(e)=> setPrice(e.target.value)}>
 
         </input>
-
+        <span className="errors">{errors.price}</span>
         </section>
         <section className='urls'>
         <h2>
@@ -168,12 +169,12 @@ const SpotForm = ({spot, spotImages, formType}) => {
         type='text'
         value={previewImage}
         placeholder='Preview Image URL'
-        onChange={(e)=> setPreviewImage(e.target.value)}></input>
+        onChange={(e)=> setPreviewImage(e.target.value)}></input><span className="errors">{errors.previewImage}</span>
         <br></br><input
         type='text'
         value={image1}
         placeholder='Image URL'
-        onChange={(e)=> setImage1(e.target.value)}></input>
+        onChange={(e)=> setImage1(e.target.value)}></input><span className="errors">{errors.image}</span>
          <br></br><input
         type='text'
         value={image2}

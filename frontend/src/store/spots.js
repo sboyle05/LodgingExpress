@@ -56,16 +56,21 @@ export const createSpot = (spot, spotImages) => async (dispatch) => {
         headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(spot)
     });
+
+    console.log("response::", response)
     if(response.ok){
         const newSpot = await response.json()
 
         await dispatch(createSpotImages(spotImages, newSpot.id))
         // dispatch(receiveSpot(newSpot))
         return newSpot
-    } else {
-        const error = await response.json()
-        return error
     }
+        return response
+    // else {
+    //     const errors = await response.json()
+    //     console.log("errors:::", errors)
+    //     return errors
+    // }
 }
 
 export const createSpotImages = (spotImages, newSpotId) => async (dispatch) => {
