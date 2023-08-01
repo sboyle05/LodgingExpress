@@ -11,7 +11,7 @@ import { Switch } from "react-router-dom/cjs/react-router-dom.min";
 const AllSpots =() => {
     const dispatch = useDispatch();
     const spots = Object.values(useSelector(state=>state.spots))
-    console.log("spots::", spots)
+
 
     useEffect(()=> {
         dispatch(fetchSpots());

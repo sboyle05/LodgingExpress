@@ -34,7 +34,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
                 "message": "Current user is prohibited from accessing the selected data"
             })
         }
-        // console.log('review:',review)
+
         if (review.ReviewImages.length > 10){
             res.status(403).json({
                 "message": "Maximum number of images for this resource was reached"

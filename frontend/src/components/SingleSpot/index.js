@@ -3,7 +3,7 @@ import './SingleSpot.css';
 import { fetchReceiveSpot } from "../../store/spots";
 import {useDispatch, useSelector} from 'react-redux';
 import { useEffect } from 'react';
-import { Link, useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { useState } from 'react';
 
 

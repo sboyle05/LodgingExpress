@@ -29,7 +29,7 @@ export const fetchSpots = () => async (dispatch) => {
     if(response.ok){
         const data = await response.json();
         const spots = data.Spots;
-        // console.log("spots:::", spots)
+
         dispatch(loadSpots(spots))
     }
 
@@ -49,20 +49,37 @@ export const fetchReceiveSpot = (spotId) => async (dispatch) => {
     }
 }
 
-export const createSpot = (spot) => async (dispatch) => {
-    const response = await csrfFetch('/api/spots', {
+export const createSpot = (spot, spotImages) => async (dispatch) => {
+
+    const response = await csrfFetch('/api/spots/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(spot)
     });
     if(response.ok){
         const newSpot = await response.json()
-        dispatch(receiveSpot(newSpot))
+
+        await dispatch(createSpotImages(spotImages, newSpot.id))
+        // dispatch(receiveSpot(newSpot))
         return newSpot
     } else {
         const error = await response.json()
         return error
     }
+}
+
+export const createSpotImages = (spotImages, newSpotId) => async (dispatch) => {
+
+    for(let spotImage of spotImages){
+
+        const response = await csrfFetch(`/api/spots/${newSpotId}/images`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+
+        body: JSON.stringify(spotImage)
+        })
+    }
+
 }
 
 export const updateSpot = (spot) => async (dispatch) => {
@@ -89,7 +106,7 @@ export const updateSpot = (spot) => async (dispatch) => {
 const spotsReducer = (state = {}, action) => {
     switch (action.type) {
         case LOAD_SPOTS:
-            console.log("action.spots::", action.spots)
+
             // return { ...state, spots: [...action.spots] };
             const spotsState = {};
             action.spots.forEach((spot) => {
