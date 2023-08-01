@@ -4,32 +4,53 @@ import  {useDispatch} from 'react-redux';
 import { createSpot, updateSpot } from '../../store/spots';
 import './NewSpotForm.css';
 
-const SpotForm = ({spot, formType}) => {
+const SpotForm = ({spot, spotImages, formType}) => {
     const history = useHistory();
     const dispatch = useDispatch();
     const [country, setCountry] = useState(spot?.country);
-    const [streetAddress, setStreetAddress] = useState(spot?.streetAddress);
+    const [address, setAddress] = useState(spot?.address);
     const [city, setCity] = useState(spot?.city);
     const [state, setState] = useState(spot?.state);
     const [lat, setLat] = useState(spot?.lat);
-    const [long, setLong] = useState(spot?.long);
+    const [lng, setLng] = useState(spot?.lng);
     const [description, setDescription] = useState(spot?.description);
     const [name, setName] = useState(spot?.name);
     const [price, setPrice] = useState(spot?.price);
     const [previewImage, setPreviewImage] = useState(spot?.previewImage);
-    const [image, setImage] = useState(spot?.image)
+    const [image1, setImage1] = useState(spot?.image1)
+    const [image2, setImage2] = useState(spot?.image2)
+    const [image3, setImage3] = useState(spot?.image3)
+    const [image4, setImage4] = useState(spot?.image4)
     const [errors, setErrors] = useState({});
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors({});
 
-        spot = {...spot, country, streetAddress, city, state, lat, long, description, name, price, previewImage, image}
+        spot = {...spot, country, address, city, state, lat: parseFloat(lat), lng: parseFloat(lng), description, name, price: parseFloat(price)}
+        spotImages = [
+            {url: previewImage,
+            preview: true
+            },
+            {url: image1,
+            preview: false
+            },
+            {url: image2,
+            preview: false
+            },
+            {url: image3,
+            preview: false
+            },
+            {url: image4,
+            preview: false
+            },
+
+        ]
         let submitSpot;
         if(formType === "Update Spot"){
             submitSpot = await dispatch(updateSpot(spot))
         } else{
-            submitSpot = await dispatch(createSpot(spot))
+            submitSpot = await dispatch(createSpot(spot, spotImages))
         }
         if(submitSpot.errors) return setErrors(submitSpot.errors)
         if (submitSpot){
@@ -65,9 +86,9 @@ const SpotForm = ({spot, formType}) => {
         Street address</h3>
         <input
         type='text'
-        value={streetAddress}
+        value={address}
         placeholder='Address'
-        onChange={(e)=> setStreetAddress(e.target.value)}></input>
+        onChange={(e)=> setAddress(e.target.value)}></input>
 
         </section>
         <section className='cityState'>
@@ -91,18 +112,18 @@ const SpotForm = ({spot, formType}) => {
         <h3>
         Latitude
         <input
-        type='text'
+        type='number'
         value={lat}
         placeholder='Latitude'
         onChange={(e)=> setLat(e.target.value)}></input>
         </h3>
         <h3>
-        Longitude
+        lngitude
         <input
-        type='text'
-        value={long}
-        placeholder='Longitude'
-        onChange={(e)=> setLong(e.target.value)}></input>
+        type='number'
+        value={lng}
+        placeholder='lngitude'
+        onChange={(e)=> setLng(e.target.value)}></input>
         </h3>
         </section>
         <section className='description'>
@@ -131,7 +152,7 @@ const SpotForm = ({spot, formType}) => {
         <h2>
         Set a base price for your spot</h2>
         <input
-        type='text'
+        type='number'
         value={price}
         placeholder='Price per night (USD)'
         onChange={(e)=> setPrice(e.target.value)}>
@@ -150,24 +171,24 @@ const SpotForm = ({spot, formType}) => {
         onChange={(e)=> setPreviewImage(e.target.value)}></input>
         <br></br><input
         type='text'
-        value={image}
+        value={image1}
         placeholder='Image URL'
-        onChange={(e)=> setImage(e.target.value)}></input>
+        onChange={(e)=> setImage1(e.target.value)}></input>
          <br></br><input
         type='text'
-        value={image}
+        value={image2}
         placeholder='Image URL'
-        onChange={(e)=> setImage(e.target.value)}></input>
+        onChange={(e)=> setImage2(e.target.value)}></input>
          <br></br><input
         type='text'
-        value={image}
+        value={image3}
         placeholder='Image URL'
-        onChange={(e)=> setImage(e.target.value)}></input>
+        onChange={(e)=> setImage3(e.target.value)}></input>
          <br></br><input
         type='text'
-        value={image}
+        value={image4}
         placeholder='Image URL'
-        onChange={(e)=> setImage(e.target.value)}></input>
+        onChange={(e)=> setImage4(e.target.value)}></input>
         </section>
         <button type="submit">{formType}</button>
         </form>

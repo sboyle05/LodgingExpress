@@ -51,7 +51,7 @@ const SingleSpot = ()=> {
                     ? <span>{spot.numReviews} reviews</span>
                     : spot.numReviews === 1
                     ? <span> {spot.numReviews} review</span>
-                    : <span>no reviews yet</span>
+                    : <span>New</span>
                     }</div>
                     </section>
                     <button>Reserve</button>

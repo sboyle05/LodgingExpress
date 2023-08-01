@@ -6,7 +6,7 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import AllSpots from "./components/Spots/AllSpots";
 import SingleSpot from "./components/SingleSpot";
-import NewSpotForm from "./components/SpotForm";
+import CreateSpotForm from "./components/CreateSpotForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ function App() {
       {isLoaded && <Switch>
         <Route exact path='/' component={AllSpots}></Route>
         <Route path="/login"></Route>
-        <Route path='/spots/new' component={NewSpotForm}></Route>
+        <Route path='/spots/new' component={CreateSpotForm}></Route>
         <Route path='/spots/:spotId' component={SingleSpot}></Route>
         <Route path="/signup"></Route>
         </Switch>}

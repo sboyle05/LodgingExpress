@@ -1,5 +1,7 @@
 /** Action Type Constants: */
 
+import { csrfFetch } from "./csrf";
+
 export const LOAD_SPOTS = 'spots/LOAD_SPOTS';
 
 export const RECEIVE_SPOT = 'spots/RECEIVE_SPOT';
@@ -48,7 +50,7 @@ export const fetchReceiveSpot = (spotId) => async (dispatch) => {
 }
 
 export const createSpot = (spot) => async (dispatch) => {
-    const response = await fetch('/api/spots', {
+    const response = await csrfFetch('/api/spots', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(spot)

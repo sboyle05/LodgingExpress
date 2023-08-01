@@ -1,15 +1,14 @@
 
 
 .SpotCard{
-    border: 5px black solid;
+
     width: 215px;
-    height: 215px;
+    height: 250px;
     display: flex;
     align-items: flex-start;
     overflow: hidden;
     margin-right: 10px;
     margin-left: 10px;
-    flex-grow: 1;
     padding: 10px;
 }
 .spotImage{
@@ -31,6 +30,7 @@ img {
     font-family: 'Montserrat', sans-serif;
     font-size: 12px;
     font-weight: 900;
+    width: 215px;
 
 }
 
