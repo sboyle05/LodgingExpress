@@ -6,6 +6,7 @@ import ProfileButton from "./ProfileButton";
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
+// import
 import "./Navigation.css";
 
 
@@ -15,9 +16,13 @@ function Navigation({ isLoaded }) {
   let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
+      <><section className="buttons">
+      <span><NavLink to='/spots/new'><button className="createSpot">Create a new spot</button></NavLink></span>
       <li>
         <ProfileButton user={sessionUser} />
       </li>
+      </section>
+      </>
     );
   } else {
     sessionLinks = (

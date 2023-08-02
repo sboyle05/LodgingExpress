@@ -23,6 +23,8 @@ export const loadSpotReviews = (spotId, reviews) => ({
         const data = await response.json()
         const reviews = data.Reviews;
         dispatch(loadSpotReviews(spotId, reviews))
+        console.log("thunk loadSpotReviews data", data )
+        console.log("thunk loadSpotReviews reviews ", reviews)
     } else{
         const error = await response.json()
         return error
@@ -35,12 +37,26 @@ const reviewsReducer = (state = {}, action) => {
 
   switch(action.type){
     case LOAD_SPOT_REVIEWS:
+    //3rd attempt
+    const {spotId, reviews} = action;
+    return {
+      ...state,
+      [spotId]: reviews,
+    }
 
-      const {spotId, reviews} = action
-      return {
-        ...state,
-        [spotId]: reviews.reduce((obj, review) => ({ ...obj, [review.id]: review}), {})
-      };
+    //2nd attempt
+    // const reviewsState = {};
+      // action.reviews.forEach((review) => {
+      //   reviewsState[review.review] = review;
+      // });
+      // return reviewsState
+
+      // //first attempt
+      // const {spotId, reviews} = action
+      // return {
+      //   ...state,
+      //   [spotId]: reviews.reduce((obj, review) => ({ ...obj, [review.spotId]: review}), {})
+      // };
       default:
         return state;
   }

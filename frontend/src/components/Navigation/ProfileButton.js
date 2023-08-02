@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from 'react-redux';
+import { Link } from "react-router-dom";
 import * as sessionActions from '../../store/session';
 import './ProfileButton.css'
 function ProfileButton({ user }) {
@@ -43,9 +44,11 @@ function ProfileButton({ user }) {
       </button>
       <section className="dropdown">
       <ul className={ulClassName} ref={ulRef}>
-        <li>{user.username}</li>
-        <li>{user.firstName} {user.lastName}</li>
-        <li>{user.email}</li>
+        <li>Hello, {user.username}</li>
+        {/* <li>{user.firstName} {user.lastName}</li>
+        */}
+         <li>{user.email}</li>
+         <li><Link to='/spots/current'><button>Manage Spots</button></Link></li>
         <li>
           <button onClick={logout}>Log Out</button>
         </li>

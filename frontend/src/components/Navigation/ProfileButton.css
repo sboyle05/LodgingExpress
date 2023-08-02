@@ -18,3 +18,7 @@
 .bars{
     padding-right: 8px;
 }
+
+li {
+    list-style-type: none;
+}

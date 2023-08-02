@@ -14,11 +14,11 @@ const SingleSpot = ()=> {
     const [goToSpot, setGoToSpot] = useState(spotId);
     const spot = useSelector(state=>state.spots[spotId])
     console.log("spotId:::",spotId)
-    const reviews = useSelector(state=> state.reviews && Object.values(state.reviews[spotId]) )
-    // const review = reviews.review
-    // console.log("review:", review)
+    const reviews = useSelector(state=> state.reviews && state.reviews[spotId])
+    // const reviewData = reviews.review
+    // console.log("review:", reviewData)
     console.log("spot:::::",spot)
-    console.log("reviewInfo::::",reviews)
+    console.log("****reviewInfo::::",reviews)
     useEffect(() => {
         dispatch(fetchReceiveSpot(spotId))
         dispatch(fetchLoadSpotReviews(spotId))
@@ -29,7 +29,7 @@ const SingleSpot = ()=> {
         history.push(`/spots/${goToSpot}`);
     }
     if(!spot || !spot.Owner || !spotId)return null;
-    if(!reviews) return null
+    // if(!reviews) return null
 
     return (
         <section className="singleSpot">
@@ -54,7 +54,7 @@ const SingleSpot = ()=> {
                         <section className="priceAndReviews">
                     <div>${spot.price} night</div>
 
-                    <div className="reviewsStar"><i className="fa-solid fa-star"></i>{spot.avgRating} &#x2022;
+                    <div className="reviewsStar"> <i className="fa-solid fa-star"></i> {spot.avgRating} &#x2022;
                     {spot.numReviews > 1
                     ? <span>{spot.numReviews} reviews</span>
                     : spot.numReviews === 1
@@ -69,12 +69,15 @@ const SingleSpot = ()=> {
             </section>
 
             <section className="reviews">
-                <span><h1>review text will go here</h1></span>
-                {/* {Array.isArray(review.SpotImages) && spot.SpotImages.map((image, index) => (
-                <img
-                className={index === 0 ? "large-image" : "small-image"}
-                key={index} src={image.url} alt={`${spot.name} ${index + 1}`} />
-            ))} */}
+                <span><h1><i className="fa-solid fa-star"></i> {spot.avgRating}   &#x2022;   {spot.numReviews > 1
+                    ? <span>{spot.numReviews} reviews</span>
+                    : spot.numReviews === 1
+                    ? <span> {spot.numReviews} review</span>
+                    : <span> New</span>
+                    }</h1></span>
+             {Array.isArray(reviews) && reviews.map((review, index) => (
+               <div key ={index}>{review.createdAt}{review.review}</div>
+             ))}
             </section>
         </section>
     )

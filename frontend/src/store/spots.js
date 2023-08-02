@@ -58,24 +58,24 @@ export const createSpot = (spot, spotImages) => async (dispatch) => {
         });
         if(response.ok){
             const newSpot = await response.json()
-            console.log("response.ok, newspot:********:", newSpot)
+            // console.log("response.ok, newspot:********:", newSpot)
             await dispatch(createSpotImages(spotImages, newSpot.id))
             // dispatch(receiveSpot(newSpot))
             return newSpot
         }
 
         else {
-            console.log("response:not ok:********")
+            // console.log("response:not ok:********")
             const errors = await response.json()
 
-            console.log("errors:::", errors)
+            // console.log("errors:::", errors)
             return errors
         }
     }catch(error){
-        console.log("in catch:********error", error)
+        // console.log("in catch:********error", error)
         const errors = await error.json()
 
-        console.log("in catch errors:::", errors)
+        // console.log("in catch errors:::", errors)
         return errors
     }
 
@@ -103,20 +103,29 @@ export const createSpotImages = (spotImages, newSpotId) => async (dispatch) => {
 }
 
 export const updateSpot = (spot) => async (dispatch) => {
-    const response = await fetch(`/api/reports/${spot.id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(spot)
-    });
-    if(response.ok){
-     const updatedSpot = await response.json()
-      dispatch(editSpot(updatedSpot))
-      return updatedSpot
+    try{
+        const response = await csrfFetch(`/api/spots/${spot.id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(spot)
+          });
+          if(response.ok){
+           const updatedSpot = await response.json()
+            dispatch(editSpot(updatedSpot))
+            return updatedSpot
+          }
+          else {
+            const error = await response.json()
+            return error
+          }
+    }catch(error){
+          // console.log("in catch:********error", error)
+          const errors = await error.json()
+
+          // console.log("in catch errors:::", errors)
+          return errors
     }
-    else {
-      const error = await response.json()
-      return error
-    }
+
   }
 
 
