@@ -35,13 +35,13 @@ module.exports = {
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+        type: Sequelize.DATEONLY,
+        defaultValue: Sequelize.literal('CURRENT_DATE')
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+        type: Sequelize.DATEONLY,
+        defaultValue: Sequelize.literal('CURRENT_DATE')
       }
     }, options);
   },

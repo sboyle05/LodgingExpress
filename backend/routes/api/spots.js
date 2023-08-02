@@ -224,7 +224,7 @@ router.get('/:spotId', async (req, res, next) => {
        })
     } else {
         const images = await SpotImage.findAll({
-            where: { spotId: spotById.id, preview: true},
+            where: { spotId: spotById.id},
         })
         const averageRating = await spotById.getAverageRating();
         const numReviews = await spotById.getNumReviews();
@@ -286,6 +286,7 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
     const currentUser = req.user.id;
     const selectedSpotId = req.params.spotId;
     const selectedSpot = await Spot.findByPk(selectedSpotId);
+
     if(!selectedSpot){
         res.status(404).json({
             "message": "Spot couldn't be found"

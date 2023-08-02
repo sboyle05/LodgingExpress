@@ -4,7 +4,7 @@ import  {useDispatch} from 'react-redux';
 import { createSpot, updateSpot } from '../../store/spots';
 import './NewSpotForm.css';
 
-const SpotForm = ({spot, spotImages, formType}) => {
+const EditSpotForm = ({spot, spotImages, formType}) => {
     const history = useHistory();
     const dispatch = useDispatch();
     const [country, setCountry] = useState(spot?.country);
@@ -16,11 +16,11 @@ const SpotForm = ({spot, spotImages, formType}) => {
     const [description, setDescription] = useState(spot?.description);
     const [name, setName] = useState(spot?.name);
     const [price, setPrice] = useState(spot?.price);
-    const [previewImage, setPreviewImage] = useState(spot?.previewImage);
-    const [image1, setImage1] = useState(spot?.image1)
-    const [image2, setImage2] = useState(spot?.image2)
-    const [image3, setImage3] = useState(spot?.image3)
-    const [image4, setImage4] = useState(spot?.image4)
+    // const [previewImage, setPreviewImage] = useState(spot?.previewImage);
+    // const [image1, setImage1] = useState(spot?.image1)
+    // const [image2, setImage2] = useState(spot?.image2)
+    // const [image3, setImage3] = useState(spot?.image3)
+    // const [image4, setImage4] = useState(spot?.image4)
     const [errors, setErrors] = useState({});
 
     const handleSubmit = async (e) => {
@@ -28,30 +28,27 @@ const SpotForm = ({spot, spotImages, formType}) => {
         setErrors({});
 
         spot = {...spot, country, address, city, state, lat: parseFloat(lat), lng: parseFloat(lng), description, name, price: parseFloat(price)}
-        spotImages = [
-            {url: previewImage,
-            preview: true
-            },
-            {url: image1,
-            preview: false
-            },
-            {url: image2,
-            preview: false
-            },
-            {url: image3,
-            preview: false
-            },
-            {url: image4,
-            preview: false
-            },
-        ];
+        // spotImages = [
+        //     {url: previewImage,
+        //     preview: true
+        //     },
+        //     {url: image1,
+        //     preview: false
+        //     },
+        //     {url: image2,
+        //     preview: false
+        //     },
+        //     {url: image3,
+        //     preview: false
+        //     },
+        //     {url: image4,
+        //     preview: false
+        //     },
+        // ];
 
         let submitSpot;
         if(formType === "Update Spot"){
             submitSpot = await dispatch(updateSpot(spot))
-
-        } else{
-            submitSpot = await dispatch(createSpot(spot, spotImages))
 
         }
 
@@ -68,7 +65,7 @@ const SpotForm = ({spot, spotImages, formType}) => {
 
         <form onSubmit={handleSubmit}>
         <div>
-        <h1>Create a new Spot</h1>
+        <h1>Update your Spot</h1>
         </div>
         <h2>Where's your place located?</h2>
         <h3>Guests will only get your exact address once they booked a reservation</h3>
@@ -163,7 +160,7 @@ const SpotForm = ({spot, spotImages, formType}) => {
         </input>
         <span className="errors">{errors.price}</span>
         </section>
-        <section className='urls'>
+        {/* <section className='urls'>
         <h2>
         Liven up your spot with photos </h2>
         <h3>Submit a link to at least one phot to publish your spot.</h3>
@@ -192,7 +189,7 @@ const SpotForm = ({spot, spotImages, formType}) => {
         value={image4}
         placeholder='Image URL'
         onChange={(e)=> setImage4(e.target.value)}></input>
-        </section>
+        </section> */}
         <button type="submit">{formType}</button>
         </form>
         </section>
@@ -203,4 +200,4 @@ const SpotForm = ({spot, spotImages, formType}) => {
 }
 
 
-export default SpotForm;
+export default EditSpotForm;

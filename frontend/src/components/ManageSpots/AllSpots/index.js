@@ -1,6 +1,6 @@
 import React from "react";
 import './AllSpots.css'
-import SpotCard from "../SpotCard";
+import SpotCard from "../ManageSpotCard";
 import { fetchSpots } from "../../../store/spots";
 import { Link } from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 import { Switch } from "react-router-dom/cjs/react-router-dom.min";
 
 
-const AllSpots =() => {
+const ManageAllSpots =() => {
     const dispatch = useDispatch();
     const spots = Object.values(useSelector(state=>state.spots))
 
@@ -37,4 +37,4 @@ const AllSpots =() => {
 
 }
 
-export default AllSpots;
+export default ManageAllSpots;
