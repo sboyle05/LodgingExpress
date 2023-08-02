@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import  {useDispatch} from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
+import  {useDispatch, useSelector} from 'react-redux';
 import { createSpot, updateSpot } from '../../store/spots';
 import './NewSpotForm.css';
+import { fetchReceiveSpot } from "../../store/spots";
 
-const EditSpotForm = ({spot, spotImages, formType}) => {
+
+
+const EditSpotForm = ({spot, formType}) => {
     const history = useHistory();
     const dispatch = useDispatch();
     const [country, setCountry] = useState(spot?.country);
@@ -16,12 +19,20 @@ const EditSpotForm = ({spot, spotImages, formType}) => {
     const [description, setDescription] = useState(spot?.description);
     const [name, setName] = useState(spot?.name);
     const [price, setPrice] = useState(spot?.price);
+    const {spotId} = useParams();
+    console.log("spotId**useParams", spotId)
+    const currentSpot = useSelector(state=>state.spots[spotId])
+    console.log("currentSPOT****",currentSpot)
     // const [previewImage, setPreviewImage] = useState(spot?.previewImage);
     // const [image1, setImage1] = useState(spot?.image1)
     // const [image2, setImage2] = useState(spot?.image2)
     // const [image3, setImage3] = useState(spot?.image3)
     // const [image4, setImage4] = useState(spot?.image4)
     const [errors, setErrors] = useState({});
+
+    useEffect(() => {
+        dispatch(fetchReceiveSpot(spotId))
+      }, [dispatch, spotId])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -190,7 +201,7 @@ const EditSpotForm = ({spot, spotImages, formType}) => {
         placeholder='Image URL'
         onChange={(e)=> setImage4(e.target.value)}></input>
         </section> */}
-        <button type="submit">{formType}</button>
+        <button type="submit">Update Form</button>
         </form>
         </section>
 
