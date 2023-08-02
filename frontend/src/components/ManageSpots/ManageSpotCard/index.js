@@ -19,7 +19,7 @@ const SpotCard = ({spot}) => {
         </section>
         <h3 className="price">{`$${spot.price} night`}</h3>
         <section className="manageButtons">
-            <button>Update</button><button>Delete</button>
+            <Link to={`/spots/${spot.id}/edit`}><button>Update</button></Link><button>Delete</button>
         </section>
     </section>
 

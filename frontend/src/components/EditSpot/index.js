@@ -19,7 +19,7 @@ const EditSpotForm = ({spot, formType}) => {
     const [description, setDescription] = useState(spot?.description);
     const [name, setName] = useState(spot?.name);
     const [price, setPrice] = useState(spot?.price);
-    const {spotId} = useParams();
+    const spotId = useParams().id;
     console.log("spotId**useParams", spotId)
     const currentSpot = useSelector(state=>state.spots[spotId])
     console.log("currentSPOT****",currentSpot)
@@ -33,6 +33,20 @@ const EditSpotForm = ({spot, formType}) => {
     useEffect(() => {
         dispatch(fetchReceiveSpot(spotId))
       }, [dispatch, spotId])
+
+
+    useEffect(() => {
+        setCountry(currentSpot?.country || '');
+        setAddress(currentSpot?.address || '');
+        setCity(currentSpot?.city || '');
+        setState(currentSpot?.state || '');
+        setLat(currentSpot?.lat || '');
+        setLng(currentSpot?.lng || '');
+        setDescription(currentSpot?.description || '');
+        setName(currentSpot?.name || '');
+        setPrice(currentSpot?.price || '');
+    }, [currentSpot])
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -58,10 +72,8 @@ const EditSpotForm = ({spot, formType}) => {
         // ];
 
         let submitSpot;
-        if(formType === "Update Spot"){
             submitSpot = await dispatch(updateSpot(spot))
 
-        }
 
         if(submitSpot.errors) return setErrors(submitSpot.errors)
         if (submitSpot){
