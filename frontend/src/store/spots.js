@@ -50,27 +50,42 @@ export const fetchReceiveSpot = (spotId) => async (dispatch) => {
 }
 
 export const createSpot = (spot, spotImages) => async (dispatch) => {
+    try{
+        const response = await csrfFetch('/api/spots/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(spot)
+        });
+        if(response.ok){
+            const newSpot = await response.json()
+            console.log("response.ok, newspot:********:", newSpot)
+            await dispatch(createSpotImages(spotImages, newSpot.id))
+            // dispatch(receiveSpot(newSpot))
+            return newSpot
+        }
 
-    const response = await csrfFetch('/api/spots/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(spot)
-    });
+        else {
+            console.log("response:not ok:********")
+            const errors = await response.json()
 
-    console.log("response::", response)
-    if(response.ok){
-        const newSpot = await response.json()
+            console.log("errors:::", errors)
+            return errors
+        }
+    }catch(error){
+        console.log("in catch:********error", error)
+        const errors = await error.json()
 
-        await dispatch(createSpotImages(spotImages, newSpot.id))
-        // dispatch(receiveSpot(newSpot))
-        return newSpot
+        console.log("in catch errors:::", errors)
+        return errors
     }
-        return response
-    // else {
-    //     const errors = await response.json()
-    //     console.log("errors:::", errors)
-    //     return errors
-    // }
+
+
+
+
+
+
+
+
 }
 
 export const createSpotImages = (spotImages, newSpotId) => async (dispatch) => {

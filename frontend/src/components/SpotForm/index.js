@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import  {useDispatch} from 'react-redux';
 import { createSpot, updateSpot } from '../../store/spots';
@@ -49,16 +49,18 @@ const SpotForm = ({spot, spotImages, formType}) => {
         let submitSpot;
         if(formType === "Update Spot"){
             submitSpot = await dispatch(updateSpot(spot))
+
         } else{
             submitSpot = await dispatch(createSpot(spot, spotImages))
+
         }
-        console.log("submitSpot::::", submitSpot)
+
         if(submitSpot.errors) return setErrors(submitSpot.errors)
         if (submitSpot){
             history.push(`/spots/${submitSpot.id}`)
         }
     }
-
+    useEffect(() => {},[errors])
     return (
         <>
         <section className='newSpotForm'>
