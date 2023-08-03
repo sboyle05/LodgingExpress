@@ -1,3 +1,14 @@
 .loginScreen{
     padding: 15px;
 }
+
+.profile-dropdown {
+    position: absolute;
+    z-index: 2;
+    left: 52rem;
+    background-color: white;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    height: 6rem
+}

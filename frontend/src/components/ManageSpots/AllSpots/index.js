@@ -19,7 +19,8 @@ const ManageAllSpots =() => {
 
     if(!spots)return null;
     return (
-
+        <>
+        <Link to='/spots/new'><button className="newSpot"> Create a new spot</button></Link>
         <section className="AllSpotsContainer">
             {spots.map((spot) => (
 
@@ -32,7 +33,7 @@ const ManageAllSpots =() => {
 
             ))}
         </section>
-
+        </>
     )
 
 }

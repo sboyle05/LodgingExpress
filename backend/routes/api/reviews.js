@@ -48,7 +48,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
 router.get('/current', requireAuth, async (req, res, next) => {
 
     const userId = req.user.id;
-
+    console.log("***backend userId****", userId)
     const allReviews = await Review.findAll({
         where: { userId: userId},
         include: [

@@ -6,30 +6,78 @@ import { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import { fetchLoadSpotReviews } from "../../store/reviews";
-
+import { fetchUserReviews } from "../../store/reviews";
 const SingleSpot = ()=> {
     const dispatch = useDispatch();
     const {spotId} = useParams();
     const history = useHistory()
     const [goToSpot, setGoToSpot] = useState(spotId);
-    const spot = useSelector(state=>state.spots[spotId])
-    console.log("spotId:::",spotId)
+    const spot = useSelector(state=> state.spots[spotId])
+    const sessionUser = useSelector((state) => state.session.user);
+    const [userReviews, setUserReviews] = useState([]);
+    // console.log("USERREVIEWS AT TOP", userReviews)
+
     const reviews = useSelector(state=> state.reviews && state.reviews[spotId])
-    // const reviewData = reviews.review
-    // console.log("review:", reviewData)
-    console.log("spot:::::",spot)
-    console.log("****reviewInfo::::",reviews)
+
+    useEffect(() => {
+        if(sessionUser){
+        dispatch(fetchUserReviews())
+            .then(reviews => {
+                setUserReviews(Object.values(reviews))
+            })
+        }
+    },[sessionUser, dispatch])
+
+
     useEffect(() => {
         dispatch(fetchReceiveSpot(spotId))
         dispatch(fetchLoadSpotReviews(spotId))
-      }, [dispatch, spotId])
 
+
+      }, [dispatch, spotId])
+      if(!spot || !spot.Owner || !spotId)return null;
+
+    //   function hasReview(userReviews){
+    //     for(let i = 0; i < userReviews.length; i++){
+    //         let reviewId = userReviews.spotId;
+    //         if(reviewId === spotId){
+    //             return true
+    //         } return false
+    //     }
+    //   }
+
+      const hasReview = userReviews.filter((review) => review.spotId === spotId).length > 0;
+      console.log("userReviews",userReviews)
+      const canPostReview = sessionUser && sessionUser.id !== spot.Owner.id && !hasReview;
+      console.log("hasReview", hasReview)
     const handleSubmit = e => {
         e.preventDefault();
         history.push(`/spots/${goToSpot}`);
     }
-    if(!spot || !spot.Owner || !spotId)return null;
+
     // if(!reviews) return null
+
+
+//SESSION CODE FOR DELETE/POST REVIEW
+    let postReviewButton;
+    if(canPostReview ){
+        postReviewButton = (
+            <>
+            <button className="postReviewBut">Post Review</button>
+        </>
+        )
+    }
+    let deleteReviewButton;
+    if(hasReview){
+        deleteReviewButton = (
+            <>
+            {console.log("sessionUSER:***",sessionUser.id)}
+            {console.log("spotOWNER",spot.Owner.id)}
+            <button className="deleteReviewBut">Delete</button>
+        </>
+        )
+    }
+
 
     return (
         <section className="singleSpot">
@@ -75,11 +123,16 @@ const SingleSpot = ()=> {
                     ? <span> {spot.numReviews} review</span>
                     : <span> New</span>
                     }</h1></span>
+                   {postReviewButton}
              {Array.isArray(reviews) && reviews.map((review, index) => (
-               <div key ={index}>{review.createdAt}{review.review}</div>
+               <div key ={index}>{review.User.firstName} {review.User.lastName} <div>{new Date(review.createdAt).toISOString().split('T')[0]}</div> {review.review}</div>
              ))}
+              {deleteReviewButton}
             </section>
+
         </section>
+
+
     )
 }
 

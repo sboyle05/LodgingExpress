@@ -4,11 +4,11 @@
   "description": "## Database Schema Design",
   "main": "index.js",
   "dependencies": {
+    "cloudinary": "^1.40.0",
     "express-validator": "^7.0.1",
-    "validator": "^13.9.0",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "validator": "^13.9.0"
   },
-  "devDependencies": {},
   "scripts": {
     "render-postbuild": "npm run build --prefix frontend",
     "install": "npm --prefix backend install backend && npm --prefix frontend install frontend",

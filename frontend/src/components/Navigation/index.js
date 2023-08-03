@@ -12,7 +12,6 @@ import "./Navigation.css";
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
-
   let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
@@ -42,9 +41,10 @@ function Navigation({ isLoaded }) {
   return (
     <section className="ulNav">
 
-        <NavLink className="lodgingExpress" exact to="/">
-          Lodging Express
+        <NavLink className="OnceUponAStay" exact to="/">
+          OnceUponAStay
         </NavLink>
+
 
       {isLoaded && sessionLinks}
     </section>

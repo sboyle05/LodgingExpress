@@ -10,6 +10,7 @@ export const UPDATE_SPOT = 'spots/UPDATE_SPOT';
 
 export const DELETE_SPOT = 'spots/DELETE_SPOT';
 
+export const UPDATE_REVIEW = 'spots/UPDATE_REVIEW';
 /**  Action Creators: */
 export const loadSpots = (spots) => ({
     type: LOAD_SPOTS,
@@ -30,6 +31,11 @@ export const deleteSpot = (spotId) => ({
     type: DELETE_SPOT,
     spotId
 })
+
+export const editReview = (review) => ({
+  type: UPDATE_REVIEW,
+  review,
+})
 /** Thunk Action Creators: */
 
 export const fetchSpots = () => async (dispatch) => {
@@ -43,13 +49,13 @@ export const fetchSpots = () => async (dispatch) => {
     }
 }
 
-export const fetchDeleteSpot = (spot) => async (dispatch) => {
-    const response = await csrfFetch(`/api/spots/${spot}`, {
+export const fetchDeleteSpot = (spotId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/spots/${spotId}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
     });
     if(response.ok){
-        dispatch(deleteSpot(spot))
+        dispatch(deleteSpot(spotId))
     }else{
         const error = await response.json()
         return error
@@ -78,6 +84,34 @@ export const fetchReceiveSpot = (spotId) => async (dispatch) => {
         const error = await response.json()
         return error
     }
+}
+
+export const createReview = (spotId, review) => async (dispatch) => {
+  try{
+    const response = await csrfFetch(`/api/spots/:${spotId}/reviews`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(review)
+    });
+    if(response.ok){
+        const newReview = await response.json()
+        await dispatch(createReview(newReview))
+        return newReview
+    } else {
+        // console.log("response:not ok:********")
+        const errors = await response.json()
+
+        // console.log("errors:::", errors)
+        return errors
+    }
+}catch(error){
+    // console.log("in catch:********error", error)
+    const errors = await error.json()
+
+    // console.log("in catch errors:::", errors)
+    return errors
+
+  }
 }
 
 export const createSpot = (spot, spotImages) => async (dispatch) => {
@@ -171,6 +205,14 @@ const spotsReducer = (state = {}, action) => {
                 return { ...state, [action.spot.id]: action.spot };
             case UPDATE_SPOT:
                 return {...state, [action.spot.id]: action.spot};
+
+            case DELETE_SPOT:
+                const newState = {...state};
+                delete newState[action.spotId];
+                return newState
+            case UPDATE_REVIEW:
+                return {...state, [action.spot.id]: action.spot};
+
     default:
         return state;
     }
