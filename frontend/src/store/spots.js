@@ -35,6 +35,16 @@ export const fetchSpots = () => async (dispatch) => {
 
 }
 
+export const fetchSpotCurrentUser = () => async (dispatch) => {
+    const response = await fetch('/api/spots/current');
+    if(response.ok){
+        const data = await response.json();
+        const spots = data.Spots;
+
+        dispatch(loadSpots(spots))
+    }
+}
+
 export const fetchReceiveSpot = (spotId) => async (dispatch) => {
     const response = await fetch (`/api/spots/${spotId}`, {
         method: 'GET',
@@ -79,13 +89,6 @@ export const createSpot = (spot, spotImages) => async (dispatch) => {
         return errors
     }
 
-
-
-
-
-
-
-
 }
 
 export const createSpotImages = (spotImages, newSpotId) => async (dispatch) => {
@@ -104,6 +107,7 @@ export const createSpotImages = (spotImages, newSpotId) => async (dispatch) => {
 
 export const updateSpot = (spot) => async (dispatch) => {
     try{
+
         const response = await csrfFetch(`/api/spots/${spot.id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },

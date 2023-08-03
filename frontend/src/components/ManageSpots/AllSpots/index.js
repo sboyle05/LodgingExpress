@@ -1,7 +1,7 @@
 import React from "react";
 import './AllSpots.css'
 import SpotCard from "../ManageSpotCard";
-import { fetchSpots } from "../../../store/spots";
+import { fetchSpotCurrentUser } from "../../../store/spots";
 import { Link } from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import { useEffect } from 'react';
@@ -14,7 +14,7 @@ const ManageAllSpots =() => {
 
 
     useEffect(()=> {
-        dispatch(fetchSpots());
+        dispatch(fetchSpotCurrentUser());
     }, [dispatch])
 
     if(!spots)return null;

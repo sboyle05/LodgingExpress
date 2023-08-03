@@ -1,21 +1,28 @@
 import { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import  {useDispatch} from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
+import  {useDispatch, useSelector} from 'react-redux';
 import { createSpot, updateSpot } from '../../store/spots';
 import './NewSpotForm.css';
+import { fetchReceiveSpot } from "../../store/spots";
 
-const EditSpotForm = ({spot, spotImages, formType}) => {
+
+
+const EditSpotForm = ({spot, formType}) => {
     const history = useHistory();
     const dispatch = useDispatch();
-    const [country, setCountry] = useState(spot?.country);
-    const [address, setAddress] = useState(spot?.address);
-    const [city, setCity] = useState(spot?.city);
-    const [state, setState] = useState(spot?.state);
-    const [lat, setLat] = useState(spot?.lat);
-    const [lng, setLng] = useState(spot?.lng);
-    const [description, setDescription] = useState(spot?.description);
-    const [name, setName] = useState(spot?.name);
-    const [price, setPrice] = useState(spot?.price);
+    const [country, setCountry] = useState(spot?.country || '');
+    const [address, setAddress] = useState(spot?.address || '');
+    const [city, setCity] = useState(spot?.city || '');
+    const [state, setState] = useState(spot?.state || '');
+    const [lat, setLat] = useState(spot?.lat || '');
+    const [lng, setLng] = useState(spot?.lng || '');
+    const [description, setDescription] = useState(spot?.description || '');
+    const [name, setName] = useState(spot?.name || '');
+    const [price, setPrice] = useState(spot?.price || '');
+    const spotId = useParams().id;
+    console.log("spotId**useParams", spotId)
+    const currentSpot = useSelector(state=>state.spots[spotId])
+    console.log("****currentSPOT***useSelector",currentSpot)
     // const [previewImage, setPreviewImage] = useState(spot?.previewImage);
     // const [image1, setImage1] = useState(spot?.image1)
     // const [image2, setImage2] = useState(spot?.image2)
@@ -23,11 +30,29 @@ const EditSpotForm = ({spot, spotImages, formType}) => {
     // const [image4, setImage4] = useState(spot?.image4)
     const [errors, setErrors] = useState({});
 
+    useEffect(() => {
+        dispatch(fetchReceiveSpot(spotId))
+      }, [dispatch, spotId])
+
+
+    useEffect(() => {
+        setCountry(currentSpot?.country || '');
+        setAddress(currentSpot?.address || '');
+        setCity(currentSpot?.city || '');
+        setState(currentSpot?.state || '');
+        setLat(currentSpot?.lat || '');
+        setLng(currentSpot?.lng || '');
+        setDescription(currentSpot?.description || '');
+        setName(currentSpot?.name || '');
+        setPrice(currentSpot?.price || '');
+    }, [currentSpot])
+
+    console.log("SPOT BEFORE SUBMIT", spot)
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors({});
 
-        spot = {...spot, country, address, city, state, lat: parseFloat(lat), lng: parseFloat(lng), description, name, price: parseFloat(price)}
+        spot = {...spot, id: spotId, country, address, city, state, lat: parseFloat(lat), lng: parseFloat(lng), description, name, price: parseFloat(price)}
         // spotImages = [
         //     {url: previewImage,
         //     preview: true
@@ -46,11 +71,8 @@ const EditSpotForm = ({spot, spotImages, formType}) => {
         //     },
         // ];
 
-        let submitSpot;
-        if(formType === "Update Spot"){
-            submitSpot = await dispatch(updateSpot(spot))
-
-        }
+        console.log("****SPOT upon submit****", spot)
+        let submitSpot = await dispatch(updateSpot(spot))
 
         if(submitSpot.errors) return setErrors(submitSpot.errors)
         if (submitSpot){
@@ -190,7 +212,7 @@ const EditSpotForm = ({spot, spotImages, formType}) => {
         placeholder='Image URL'
         onChange={(e)=> setImage4(e.target.value)}></input>
         </section> */}
-        <button type="submit">{formType}</button>
+        <button type="submit">Update Form</button>
         </form>
         </section>
 
