@@ -1,0 +1,7 @@
+.starRating .on .star {
+    color: gold;
+}
+
+.starRating .off .star {
+    color: grey;
+}

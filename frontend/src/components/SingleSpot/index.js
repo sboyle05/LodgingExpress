@@ -5,25 +5,46 @@ import {useDispatch, useSelector} from 'react-redux';
 import { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useState } from 'react';
-import { fetchLoadSpotReviews } from "../../store/reviews";
+import { useModal } from "../../context/Modal";
+import { fetchDeleteReview, fetchLoadSpotReviews } from "../../store/reviews";
 import { fetchUserReviews } from "../../store/reviews";
+import OpenModalButton from "../OpenModalButton";
+import PostReviewModal from "../PostReviewModal";
+import DeleteReviewModal from "../DeleteReviewModal";
+
 const SingleSpot = ()=> {
     const dispatch = useDispatch();
     const {spotId} = useParams();
+
     const history = useHistory()
     const [goToSpot, setGoToSpot] = useState(spotId);
     const spot = useSelector(state=> state.spots[spotId])
     const sessionUser = useSelector((state) => state.session.user);
     const [userReviews, setUserReviews] = useState([]);
-    // console.log("USERREVIEWS AT TOP", userReviews)
+    const [hasReview, setHasReview] = useState(false)
+    // console.log("USERREVIEWS AT TOP", hasReview)
 
-    const reviews = useSelector(state=> state.reviews && state.reviews[spotId])
-
+    // const reviews = useSelector(state=> state.reviews && state.reviews[spotId])
+    const reviewIds = useSelector(state => state.reviews.spotReviews && state.reviews.spotReviews[spotId]);
+    // console.log("reviewIds from useSelector",reviewIds)
+    const allReviews = useSelector(state => state.reviews.reviews);
+    // console.log("allreviews from useSelector", allReviews)
+    const reviews = reviewIds && reviewIds.map(id => allReviews[id]);
+    // console.log("reviews from useSelector", reviews)
     useEffect(() => {
         if(sessionUser){
         dispatch(fetchUserReviews())
             .then(reviews => {
-                setUserReviews(Object.values(reviews))
+                // console.log("reviews in fetch", reviews)
+
+               const foundReview = Object.values(reviews).find((review) => {
+                    // console.log("FIND REVIEW.SPOT ID",review.spotId === +spotId)
+                  return review.spotId === +spotId
+                });
+                if(foundReview){
+                    setHasReview(true)
+                }
+                // console.log("*(***FOUNDREVIEW", foundReview)
             })
         }
     },[sessionUser, dispatch])
@@ -32,27 +53,19 @@ const SingleSpot = ()=> {
     useEffect(() => {
         dispatch(fetchReceiveSpot(spotId))
         dispatch(fetchLoadSpotReviews(spotId))
-
-
       }, [dispatch, spotId])
+
       if(!spot || !spot.Owner || !spotId)return null;
 
-    //   function hasReview(userReviews){
-    //     for(let i = 0; i < userReviews.length; i++){
-    //         let reviewId = userReviews.spotId;
-    //         if(reviewId === spotId){
-    //             return true
-    //         } return false
-    //     }
-    //   }
-
-      const hasReview = userReviews.filter((review) => review.spotId === spotId).length > 0;
-      console.log("userReviews",userReviews)
       const canPostReview = sessionUser && sessionUser.id !== spot.Owner.id && !hasReview;
-      console.log("hasReview", hasReview)
+
     const handleSubmit = e => {
         e.preventDefault();
         history.push(`/spots/${goToSpot}`);
+    }
+
+    const handleReviewDelete= () => {
+        dispatch(fetchLoadSpotReviews(spotId))
     }
 
     // if(!reviews) return null
@@ -63,20 +76,26 @@ const SingleSpot = ()=> {
     if(canPostReview ){
         postReviewButton = (
             <>
-            <button className="postReviewBut">Post Review</button>
+            <OpenModalButton
+            modalComponent={<PostReviewModal spotId={spotId}/>}
+            buttonText="Post Review" />
         </>
         )
     }
-    let deleteReviewButton;
-    if(hasReview){
-        deleteReviewButton = (
-            <>
-            {console.log("sessionUSER:***",sessionUser.id)}
-            {console.log("spotOWNER",spot.Owner.id)}
-            <button className="deleteReviewBut">Delete</button>
-        </>
-        )
-    }
+    // let deleteReviewButton;
+    // if(hasReview){
+    //     deleteReviewButton = (
+    //         <>
+    //         {/* {console.log("sessionUSER:***",sessionUser.id)}
+    //         {console.log("spotOWNER",spot.Owner.id)} */}
+    //          <OpenModalButton
+    //         modalComponent={<DeleteReviewModal reviewId={reviewId}/>}
+    //         buttonText="Delete Review" />
+    //         {/* <button className="deleteReviewBut"
+    //         >Delete</button> */}
+    //     </>
+    //     )
+    // }
 
 
     return (
@@ -111,7 +130,7 @@ const SingleSpot = ()=> {
                     }</div>
                     </section>
                     <section className="resBut">
-                    <button className="reserveButton">Reserve</button>
+                    <button className="reserveButton" onClick={() => alert("Feature Coming Soon!!!")}>Reserve</button>
                     </section>
                     </section>
             </section>
@@ -123,11 +142,20 @@ const SingleSpot = ()=> {
                     ? <span> {spot.numReviews} review</span>
                     : <span> New</span>
                     }</h1></span>
-                   {postReviewButton}
-             {Array.isArray(reviews) && reviews.map((review, index) => (
-               <div key ={index}>{review.User.firstName} {review.User.lastName} <div>{new Date(review.createdAt).toISOString().split('T')[0]}</div> {review.review}</div>
+                {postReviewButton}
+                {/* {console.log("reviews from return", reviews)} */}
+                {Array.isArray(reviews) && reviews.map((review, index) => (
+                <div key ={index}>
+                {review.User?.firstName} {review.User?.lastName} <div>{new Date(review?.createdAt).toISOString().split('T')[0]}</div>
+                {review?.review}
+                {sessionUser && sessionUser.id === review.userId && (
+        <OpenModalButton
+          modalComponent={<DeleteReviewModal reviewId={review.id} onReviewDelete={handleReviewDelete}/>}
+          buttonText="Delete Review"
+        />
+      )}</div>
              ))}
-              {deleteReviewButton}
+
             </section>
 
         </section>
