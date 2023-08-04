@@ -41,13 +41,13 @@ function DeleteSpotModal({spotId, closeModal}){
             <h1>Confirm Delete</h1>
             <h2>Are you sure you want to remove this spot from the listings?</h2>
             <section className="deleteButton">
-                <button onClick={() => {
+                <button className='delete'onClick={() => {
                     dispatch(fetchDeleteSpot(spotId))
                     .then(closeModal)
                 }}
                 >Yes (Delete Spot)</button></section>
 
-            <section className="dontDelete"><button
+            <section className="dontDelete"><button className="noDelete"
             onClick={closeModal}>No (Keep Spot)</button></section>
         </section>
         </>

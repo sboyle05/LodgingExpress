@@ -46,8 +46,9 @@ const SingleSpot = ()=> {
                 }
                 // console.log("*(***FOUNDREVIEW", foundReview)
             })
+            .then(() => dispatch(fetchLoadSpotReviews(spotId)))
         }
-    },[sessionUser, dispatch])
+    },[sessionUser, dispatch, spotId])
 
 
     useEffect(() => {
@@ -67,6 +68,7 @@ const SingleSpot = ()=> {
     const handleReviewDelete= () => {
         setHasReview(false)
         dispatch(fetchLoadSpotReviews(spotId))
+        dispatch(fetchReceiveSpot(spotId))
     }
 
 //SESSION CODE FOR DELETE/POST REVIEW
@@ -104,11 +106,11 @@ const SingleSpot = ()=> {
                         <section className="priceAndReviews">
                     <div>${spot.price} night</div>
 
-                    <div className="reviewsStar"> <i className="fa-solid fa-star"></i> {spot.avgRating} &#x2022;
+                    <div className="reviewsStar"> <i className="fa-solid fa-star"></i> {spot.avgRating}
                     {spot.numReviews > 1
-                    ? <span>{spot.numReviews} reviews</span>
+                    ? <span> &#x2022; {spot.numReviews} reviews</span>
                     : spot.numReviews === 1
-                    ? <span> {spot.numReviews} review</span>
+                    ? <span>  &#x2022; {spot.numReviews} review</span>
                     : <span> New</span>
                     }</div>
                     </section>
@@ -119,15 +121,15 @@ const SingleSpot = ()=> {
             </section>
 
             <section className="reviews">
-                <span><h1><i className="fa-solid fa-star"></i> {spot.avgRating}   &#x2022;   {spot.numReviews > 1
-                    ? <span>{spot.numReviews} reviews</span>
+                <span><h1><i className="fa-solid fa-star"></i> {spot.avgRating}     {spot.numReviews > 1
+                    ? <span>&#x2022; {spot.numReviews} reviews</span>
                     : spot.numReviews === 1
-                    ? <span> {spot.numReviews} review</span>
-                    : <span> New</span>
+                    ? <span>&#x2022;  {spot.numReviews} review</span>
+                    : <span> New <h2>Be the first to post a review!</h2></span>
                     }</h1></span>
                 {postReviewButton}
                 {/* {console.log("reviews from return", reviews)} */}
-                {Array.isArray(reviews) && reviews.map((review, index) => (
+                {Array.isArray(reviews) && [...reviews].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).map((review, index) => (
                 <div key ={index}>
                 {review.User?.firstName} {review.User?.lastName} <div>{new Date(review?.createdAt).toISOString().split('T')[0]}</div>
                 {review?.review}

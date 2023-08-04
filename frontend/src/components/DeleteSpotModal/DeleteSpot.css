@@ -11,3 +11,10 @@
     justify-content: center;
     display: flex;
 }
+
+.delete{
+    background-color: red;
+}
+.noDelete{
+    background-color: darkgray;
+}

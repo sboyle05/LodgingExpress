@@ -25,7 +25,30 @@ const SpotForm = ({spot, spotImages, formType}) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setErrors({});
+        let formErrors = {};
+        const isImage = (url) => {
+            return url && (url.endsWith('.jpeg') || url.endsWith('.jpg') || url.endsWith('.gif') || url.endsWith('.png'));
+        };
+
+        if (!previewImage || !isImage(previewImage)) {
+            formErrors = {...formErrors, previewImage: "Preview image is required and must be an image file (.jpg, .jpeg, .gif, .png)"};
+        }
+
+        if (image1 && !isImage(image1)) {
+            formErrors = {...formErrors, image1: "Image URL must be an image file (.jpg, .jpeg, .gif, .png)"};
+        }
+
+        if (image2 && !isImage(image2)) {
+            formErrors = {...formErrors, image2: "Image URL must be an image file (.jpg, .jpeg, .gif, .png)"};
+        }
+
+        if (image3 && !isImage(image3)) {
+            formErrors = {...formErrors, image3: "Image URL must be an image file (.jpg, .jpeg, .gif, .png)"};
+        }
+
+        if (image4 && !isImage(image4)) {
+            formErrors = {...formErrors, image4: "Image URL must be an image file (.jpg, .jpeg, .gif, .png)"};
+        }
 
         spot = {...spot, country, address, city, state, lat: parseFloat(lat), lng: parseFloat(lng), description, name, price: parseFloat(price)}
         spotImages = [
@@ -55,7 +78,15 @@ const SpotForm = ({spot, spotImages, formType}) => {
 
         }
 
-        if(submitSpot.errors) return setErrors(submitSpot.errors)
+        if(submitSpot.errors) {
+            formErrors = ({...formErrors, ...submitSpot.errors})
+        }
+
+        if (Object.keys(formErrors).length > 0) {
+            setErrors(formErrors);
+            return;
+        }
+
         if (submitSpot){
             history.push(`/spots/${submitSpot.id}`)
         }
@@ -137,13 +168,14 @@ const SpotForm = ({spot, spotImages, formType}) => {
         </h3>
         <textarea
         value={description}
-        placeholder='What makes your spot, THE SPOT?'
+        placeholder='Please write at least 30 characters'
         onChange={(e)=> setDescription(e.target.value)}></textarea>
 
         </section><span className="errors">{errors.description}</span>
         <section className='spotName'>
         <h2>
         Create a title for your spot</h2>
+        <h3>Catch guests' attention with a spot title that highlights what makes your place special.</h3>
         <input
         type='text'
         value={name}
@@ -154,6 +186,7 @@ const SpotForm = ({spot, spotImages, formType}) => {
         <section className='price'>
         <h2>
         Set a base price for your spot</h2>
+        <h3>Competitive pricing can help your listing stand out and rank higher in search results.</h3>
         <input
         type='number'
         value={price}
@@ -176,22 +209,22 @@ const SpotForm = ({spot, spotImages, formType}) => {
         type='text'
         value={image1}
         placeholder='Image URL'
-        onChange={(e)=> setImage1(e.target.value)}></input><span className="errors">{errors.image}</span>
+        onChange={(e)=> setImage1(e.target.value)}></input><span className="errors">{errors.image1}</span>
          <br></br><input
         type='text'
         value={image2}
         placeholder='Image URL'
-        onChange={(e)=> setImage2(e.target.value)}></input>
+        onChange={(e)=> setImage2(e.target.value)}></input><span className="errors">{errors.image2}</span>
          <br></br><input
         type='text'
         value={image3}
         placeholder='Image URL'
-        onChange={(e)=> setImage3(e.target.value)}></input>
+        onChange={(e)=> setImage3(e.target.value)}></input><span className="errors">{errors.image3}</span>
          <br></br><input
         type='text'
         value={image4}
         placeholder='Image URL'
-        onChange={(e)=> setImage4(e.target.value)}></input>
+        onChange={(e)=> setImage4(e.target.value)}></input><span className="errors">{errors.image4}</span>
         </section>
         <button type="submit">{formType}</button>
         </form>

@@ -27,11 +27,11 @@ const DeleteReviewModal = ({ reviewId, onReviewDelete}) => {
             <h1>Confirm Delete</h1>
             <h2>Are you sure you want to delete this review?</h2>
             <section className="deleteButton">
-                <button onClick={handleDelete}
+                <button className='delete' onClick={handleDelete}
 
                 >Yes (Delete Review)</button></section>
 
-            <section className="dontDelete"><button
+            <section className="dontDelete"><button className="noDelete"
             onClick={closeModal}>No (Keep Review)</button></section>
         </section>
         </>

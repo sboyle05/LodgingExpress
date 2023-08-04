@@ -6,6 +6,7 @@ import { useModal } from "../../context/Modal";
 import OpenModalButton from "../OpenModalButton";
 import './PostReviewModal.css';
 import { createReview } from "../../store/reviews";
+import { fetchReceiveSpot } from "../../store/spots";
 
 function PostReviewModal({spotId, setHasReview}){
     const dispatch = useDispatch();
@@ -26,7 +27,8 @@ function PostReviewModal({spotId, setHasReview}){
         dispatch(createReview(spotId, newReview))
         .then(() => {
             closeModal();
-            setHasReview(true);  // add this line to update the hasReview state
+            setHasReview(true);
+            dispatch(fetchReceiveSpot(spotId))
         })
         .catch((error)=> {
             setErrors(error)
