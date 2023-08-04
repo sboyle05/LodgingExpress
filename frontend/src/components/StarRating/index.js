@@ -1,30 +1,39 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 
-const StarRating = ({onChange}) => {
+const StarRating = ({ onChange }) => {
     const [rating, setRating] = useState(0);
     const [hover, setHover] = useState(0);
+
     return (
         <div className="starRating">
-            {[...Array(5)].map((star, index) => {
-                index += 1;
+            {[...Array(5)].map((_, index) => {
+                const ratingValue = index + 1;
+
                 return (
                     <button
-                    type="button"
-                    key={index}
-                    className={index <= (hover || rating) ? "on" : "off"}
-                    onClick={() => {
-                        setRating(index)
-                        onChange(index)}}
-                    onMouseEnter={() => setHover(index)}
-                    onMouseLeave={() => setHover(rating)}
+                        type="button"
+                        key={index}
+                        className={ratingValue <= (hover || rating) ? "on" : "off"}
+                        onClick={() => {
+                            setRating(ratingValue);
+                            onChange(ratingValue);
+                        }}
+                        onMouseEnter={() => setHover(ratingValue)}
+                        onMouseLeave={() => setHover(rating)}
                     >
-                    <span className="star">&#9733;</span>
+
+                        {ratingValue <= (hover || rating) ? (
+                            <i className="fa-solid fa-star" style={{color: '#902424'}}></i>
+                        ) : (
+                            <i className="fa-regular fa-star" style={{color: '#902424'}}></i>
+                        )}
                     </button>
                 )
             })}
         </div>
-    )
+    );
 }
+
 
 export default StarRating;

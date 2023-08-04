@@ -1,0 +1,13 @@
+#modal-content{
+    width: 20rem;
+    height: 20rem;
+}
+
+.starRating button {
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    cursor: pointer;
+    color: #902424;
+    font-size: 1.5em;
+}

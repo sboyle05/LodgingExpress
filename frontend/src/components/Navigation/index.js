@@ -43,7 +43,9 @@ function Navigation({ isLoaded }) {
 
         <NavLink className="OnceUponAStay" exact to="/">
           OnceUponAStay
+
         </NavLink>
+        <img className="lantern" src='https://media.discordapp.net/attachments/1097688198030827626/1137076549250723981/android-chrome-512x512.png' alt='lantern'/>
 
 
       {isLoaded && sessionLinks}

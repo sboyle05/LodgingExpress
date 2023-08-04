@@ -9,6 +9,7 @@
     justify-content: space-between;
     margin-bottom: 20px;
     list-style-type: none;
+    display: flex;
 }
 
 .OnceUponAStay {
@@ -29,4 +30,13 @@
 
 .buttons{
     display: flex;
+}
+
+.lantern{
+    height: 2rem;
+    width: 2rem;
+    position: absolute;
+    top: 0.5rem;
+    left: 10rem;
+    z-index: 1;
 }

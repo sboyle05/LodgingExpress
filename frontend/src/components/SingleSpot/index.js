@@ -65,11 +65,9 @@ const SingleSpot = ()=> {
     }
 
     const handleReviewDelete= () => {
+        setHasReview(false)
         dispatch(fetchLoadSpotReviews(spotId))
     }
-
-    // if(!reviews) return null
-
 
 //SESSION CODE FOR DELETE/POST REVIEW
     let postReviewButton;
@@ -77,26 +75,11 @@ const SingleSpot = ()=> {
         postReviewButton = (
             <>
             <OpenModalButton
-            modalComponent={<PostReviewModal spotId={spotId}/>}
+            modalComponent={<PostReviewModal spotId={spotId} setHasReview={setHasReview}/>}
             buttonText="Post Review" />
         </>
         )
     }
-    // let deleteReviewButton;
-    // if(hasReview){
-    //     deleteReviewButton = (
-    //         <>
-    //         {/* {console.log("sessionUSER:***",sessionUser.id)}
-    //         {console.log("spotOWNER",spot.Owner.id)} */}
-    //          <OpenModalButton
-    //         modalComponent={<DeleteReviewModal reviewId={reviewId}/>}
-    //         buttonText="Delete Review" />
-    //         {/* <button className="deleteReviewBut"
-    //         >Delete</button> */}
-    //     </>
-    //     )
-    // }
-
 
     return (
         <section className="singleSpot">
@@ -150,7 +133,7 @@ const SingleSpot = ()=> {
                 {review?.review}
                 {sessionUser && sessionUser.id === review.userId && (
         <OpenModalButton
-          modalComponent={<DeleteReviewModal reviewId={review.id} onReviewDelete={handleReviewDelete}/>}
+          modalComponent={<DeleteReviewModal reviewId={review.id} onReviewDelete={handleReviewDelete} setHasReview={setHasReview}/>}
           buttonText="Delete Review"
         />
       )}</div>

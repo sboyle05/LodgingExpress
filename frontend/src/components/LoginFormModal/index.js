@@ -25,6 +25,8 @@ function LoginFormModal() {
       });
   };
 
+   const loginDisabled = credential.length < 4 || password.length < 6;
+
   return (
     <>
     <section className="loginScreen">
@@ -51,7 +53,7 @@ function LoginFormModal() {
         {errors.credential && (
           <p>{errors.credential}</p>
         )}
-        <button type="submit">Log In</button>
+        <button type="submit" disabled={loginDisabled}>Log In</button>
       </form>
       <button onClick={() => {
       setCredential('Demo-lition');

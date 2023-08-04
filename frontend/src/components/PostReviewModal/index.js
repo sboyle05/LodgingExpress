@@ -7,7 +7,7 @@ import OpenModalButton from "../OpenModalButton";
 import './PostReviewModal.css';
 import { createReview } from "../../store/reviews";
 
-function PostReviewModal({spotId}){
+function PostReviewModal({spotId, setHasReview}){
     const dispatch = useDispatch();
     const history = useHistory();
     const { closeModal } = useModal();
@@ -24,11 +24,15 @@ function PostReviewModal({spotId}){
         // console.log("spotID*****",spotId)
         const newReview = { review: review, stars: starRating};
         dispatch(createReview(spotId, newReview))
-        .then(closeModal)
+        .then(() => {
+            closeModal();
+            setHasReview(true);  // add this line to update the hasReview state
+        })
         .catch((error)=> {
             setErrors(error)
         })
     }
+    const submitReviewDisabled = starRating < 1 || review.length < 10
     return (
         <section className="reviewModalContainer">
             <form onSubmit={handleSubmit}>
@@ -47,6 +51,7 @@ function PostReviewModal({spotId}){
             </section>
             <section className="submitRating">
                 <button type="submit"
+                disabled={submitReviewDisabled}
                 >Submit Your Review</button>
             </section>
             </form>
