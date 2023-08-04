@@ -19,20 +19,21 @@ const ManageAllSpots =() => {
 
     if(!spots)return null;
     return (
-
+        <>
+        <Link to='/spots/new'><button className="newSpot"> Create a new spot</button></Link>
         <section className="AllSpotsContainer">
             {spots.map((spot) => (
 
-                <Link to={`/spots/${spot.id}`}
-                key={spot.id}>
+                // <Link to={`/spots/${spot.id}`}
+                // key={spot.id}>
                 <SpotCard
                 spot={spot}
                 key={spot.id}/>
-                </Link>
+                // </Link>
 
             ))}
         </section>
-
+        </>
     )
 
 }

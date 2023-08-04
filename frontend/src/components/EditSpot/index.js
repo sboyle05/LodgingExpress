@@ -20,9 +20,9 @@ const EditSpotForm = ({spot, formType}) => {
     const [name, setName] = useState(spot?.name || '');
     const [price, setPrice] = useState(spot?.price || '');
     const spotId = useParams().id;
-    console.log("spotId**useParams", spotId)
+    // console.log("spotId**useParams", spotId)
     const currentSpot = useSelector(state=>state.spots[spotId])
-    console.log("****currentSPOT***useSelector",currentSpot)
+    // console.log("****currentSPOT***useSelector",currentSpot)
     // const [previewImage, setPreviewImage] = useState(spot?.previewImage);
     // const [image1, setImage1] = useState(spot?.image1)
     // const [image2, setImage2] = useState(spot?.image2)
@@ -47,7 +47,7 @@ const EditSpotForm = ({spot, formType}) => {
         setPrice(currentSpot?.price || '');
     }, [currentSpot])
 
-    console.log("SPOT BEFORE SUBMIT", spot)
+    // console.log("SPOT BEFORE SUBMIT", spot)
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors({});
@@ -71,7 +71,7 @@ const EditSpotForm = ({spot, formType}) => {
         //     },
         // ];
 
-        console.log("****SPOT upon submit****", spot)
+        // console.log("****SPOT upon submit****", spot)
         let submitSpot = await dispatch(updateSpot(spot))
 
         if(submitSpot.errors) return setErrors(submitSpot.errors)

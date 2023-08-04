@@ -7,6 +7,10 @@ export const LOAD_SPOTS = 'spots/LOAD_SPOTS';
 export const RECEIVE_SPOT = 'spots/RECEIVE_SPOT';
 
 export const UPDATE_SPOT = 'spots/UPDATE_SPOT';
+
+export const DELETE_SPOT = 'spots/DELETE_SPOT';
+
+
 /**  Action Creators: */
 export const loadSpots = (spots) => ({
     type: LOAD_SPOTS,
@@ -21,7 +25,14 @@ export const receiveSpot = (spot) => ({
 export const editSpot = (spot) => ({
     type: UPDATE_SPOT,
     spot,
+});
+
+export const deleteSpot = (spotId) => ({
+    type: DELETE_SPOT,
+    spotId
 })
+
+
 /** Thunk Action Creators: */
 
 export const fetchSpots = () => async (dispatch) => {
@@ -31,8 +42,21 @@ export const fetchSpots = () => async (dispatch) => {
         const spots = data.Spots;
 
         dispatch(loadSpots(spots))
-    }
 
+    }
+}
+
+export const fetchDeleteSpot = (spotId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/spots/${spotId}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+    });
+    if(response.ok){
+        dispatch(deleteSpot(spotId))
+    }else{
+        const error = await response.json()
+        return error
+    }
 }
 
 export const fetchSpotCurrentUser = () => async (dispatch) => {
@@ -58,6 +82,7 @@ export const fetchReceiveSpot = (spotId) => async (dispatch) => {
         return error
     }
 }
+
 
 export const createSpot = (spot, spotImages) => async (dispatch) => {
     try{
@@ -150,6 +175,13 @@ const spotsReducer = (state = {}, action) => {
                 return { ...state, [action.spot.id]: action.spot };
             case UPDATE_SPOT:
                 return {...state, [action.spot.id]: action.spot};
+
+            case DELETE_SPOT:
+                const newState = {...state};
+                delete newState[action.spotId];
+                return newState
+
+
     default:
         return state;
     }
