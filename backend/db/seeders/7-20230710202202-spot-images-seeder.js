@@ -17,6 +17,30 @@ module.exports = {
         preview: true,
       },
       {
+
+        spotId: 1,
+        url: 'https://media.discordapp.net/attachments/1097688198030827629/1137124037999472721/hob.webp?width=860&height=573',
+        preview: true,
+      },
+      {
+
+        spotId: 1,
+        url: 'https://media.discordapp.net/attachments/1097688198030827629/1137124038469226526/hob2.jpeg',
+        preview: true,
+      },
+      {
+
+        spotId: 1,
+        url: 'https://media.discordapp.net/attachments/1097688198030827629/1137124038972551188/hob3.webp?width=764&height=573',
+        preview: true,
+      },
+      {
+
+        spotId: 1,
+        url: 'https://media.discordapp.net/attachments/1097688198030827629/1137124039501025320/hob4.webp?width=859&height=573',
+        preview: true,
+      },
+      {
         spotId: 2,
         url: 'https://c.files.bbci.co.uk/53AC/production/_91302412_privet.jpg',
         preview: true,
@@ -133,7 +157,7 @@ module.exports = {
       },
       {
         spotId: 25,
-        url: 'https://static.wikia.nocookie.net/starwars/images/d/dd/ST-ewokvillage.jpg/revision/latest?cb=20070811234556',
+        url: 'https://media.discordapp.net/attachments/1097688198030827626/1137118449433325659/latest.png?width=764&height=573',
         preview: true,
       },
       {
