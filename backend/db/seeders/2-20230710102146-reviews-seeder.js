@@ -80,7 +80,7 @@ module.exports = {
     {
       spotId: 12,
       userId: 1,
-      review: 'A different residence but again with the violin music and life deducing. The deductions were accurate but a bit unnerving.',
+      review: 'Quirky place with a captivating view. However, every hour on the hour, the entire BnB would lift up for a ship to pass under, causing some minor disruption to my tea time. Also, London cab drivers seemed rather perplexed each time I asked to be dropped off at the middle of Tower Bridge. Quite an adventure, though I do wish theyd mentioned the incessant horn honking from confused drivers.',
       stars: 4
     },
     {

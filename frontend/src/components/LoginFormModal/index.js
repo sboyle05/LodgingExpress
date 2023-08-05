@@ -25,10 +25,13 @@ function LoginFormModal() {
       });
   };
 
+   const loginDisabled = credential.length < 4 || password.length < 6;
+
   return (
     <>
+    <section className="loginScreen">
       <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
+      <form id='loginForm' onSubmit={handleSubmit}>
         <label>
           Username or Email
           <input
@@ -50,8 +53,17 @@ function LoginFormModal() {
         {errors.credential && (
           <p>{errors.credential}</p>
         )}
-        <button type="submit">Log In</button>
+        <button type="submit" disabled={loginDisabled}>Log In</button>
       </form>
+      <button onClick={() => {
+      setCredential('Demo-lition');
+        setPassword('password');
+        dispatch(sessionActions.login({credential: 'Demo-lition', password: 'password'}))
+        .then(closeModal)
+      }}>
+        Demo User
+        </button>
+      </section>
     </>
   );
 }

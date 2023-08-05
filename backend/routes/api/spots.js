@@ -224,7 +224,7 @@ router.get('/:spotId', async (req, res, next) => {
        })
     } else {
         const images = await SpotImage.findAll({
-            where: { spotId: spotById.id, preview: true},
+            where: { spotId: spotById.id},
         })
         const averageRating = await spotById.getAverageRating();
         const numReviews = await spotById.getNumReviews();
@@ -286,6 +286,7 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
     const currentUser = req.user.id;
     const selectedSpotId = req.params.spotId;
     const selectedSpot = await Spot.findByPk(selectedSpotId);
+
     if(!selectedSpot){
         res.status(404).json({
             "message": "Spot couldn't be found"
@@ -455,8 +456,8 @@ function isNumeric(str) {
 
 router.get('/', async (req, res, next) => {
     // Need to parse query parameters
-    let page = req.query.page || "1";
-    let size = req.query.size || "20";
+    // let page = req.query.page || "1"; commented out to temp stop pagination
+    // let size = req.query.size || "20";
     let minLat = req.query.minLat;
     let maxLat = req.query.maxLat;
     let minLng = req.query.minLng;
@@ -465,8 +466,8 @@ router.get('/', async (req, res, next) => {
     let maxPrice = req.query.maxPrice;
 
     let errors = {};
-    if (!isNumeric(page) || page < 1 || page > 10) errors.page = "Page must be greater than or equal to 1 or less than 10";
-    if (!isNumeric(size) || size < 1 || size > 20) errors.size = "Size must be greater than or equal to 1 or less than 20 ";
+    // if (!isNumeric(page) || page < 1 || page > 10) errors.page = "Page must be greater than or equal to 1 or less than 10"; commented out to temp stop pagination
+    // if (!isNumeric(size) || size < 1 || size > 20) errors.size = "Size must be greater than or equal to 1 or less than 20 ";
     if (minLat && !isNumeric(minLat)) errors.minLat = "Minimum latitude is invalid";
     if (maxLat && !isNumeric(maxLat)) errors.maxLat = "Maximum latitude is invalid";
     if (minLng && !isNumeric(minLng)) errors.minLng = "Minimum longitude is invalid";
@@ -481,13 +482,13 @@ router.get('/', async (req, res, next) => {
         });
     }
 
-    let offset = (page - 1) * size;
+    // let offset = (page - 1) * size; commented out to temp stop pagination
 
-    let options = {
-        limit: size,
-        offset: offset
-    };
-
+    // let options = { commented out to temp stop pagination
+    //     limit: size,
+    //     offset: offset
+    // };
+    let options = {}; //comment out this line and use above with pagination
     let whereConditions = {};
     if (!isNaN(minLat) && !isNaN(maxLat)) whereConditions.lat = { [Op.between]: [minLat, maxLat] };
     if (!isNaN(minLng) && !isNaN(maxLng)) whereConditions.lng = { [Op.between]: [minLng, maxLng] };
@@ -511,7 +512,8 @@ router.get('/', async (req, res, next) => {
                     previewImage: images.length > 0 ? images[0].url : null,
                 }
     }))
-    res.json({Spots: spotsWithImagesAndRating, page: page, size: size})
+    res.json({Spots: spotsWithImagesAndRating}) //comment out this line and use below with pagination
+    // res.json({Spots: spotsWithImagesAndRating, page: page, size: size}) commented out to temp stop pagination
 })
 
 

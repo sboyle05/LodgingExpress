@@ -6,17 +6,22 @@ import ProfileButton from "./ProfileButton";
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
+// import
 import "./Navigation.css";
+
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
-
   let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
+      <><section className="buttons">
+      <span><NavLink to='/spots/new'><button className="createSpot">Create a new spot</button></NavLink></span>
       <li>
         <ProfileButton user={sessionUser} />
       </li>
+      </section>
+      </>
     );
   } else {
     sessionLinks = (
@@ -34,14 +39,17 @@ function Navigation({ isLoaded }) {
   }
 
   return (
-    <ul>
-      <li>
-        <NavLink exact to="/">
-          Home
+    <section className="ulNav">
+
+        <NavLink className="OnceUponAStay" exact to="/">
+          OnceUponAStay
+
         </NavLink>
-      </li>
+        <img className="lantern" src='https://media.discordapp.net/attachments/1097688198030827626/1137076549250723981/android-chrome-512x512.png' alt='lantern'/>
+
+
       {isLoaded && sessionLinks}
-    </ul>
+    </section>
   );
 }
 

@@ -6,3 +6,18 @@ module.exports = {
   'seeders-path': path.resolve('db', 'seeders'),
   'migrations-path': path.resolve('db', 'migrations')
 };
+
+
+// const path = require('path');
+
+// console.log('Config path:', path.resolve('config', 'database.js'));
+// console.log('Models path:', path.resolve('db', 'models'));
+// console.log('Seeders path:', path.resolve('db', 'seeders'));
+// console.log('Migrations path:', path.resolve('db', 'migrations'));
+
+// module.exports = {
+//   config: path.resolve('config', 'database.js'),
+//   'models-path': path.resolve('db', 'models'),
+//   'seeders-path': path.resolve('db', 'seeders'),
+//   'migrations-path': path.resolve('db', 'migrations')
+// };
