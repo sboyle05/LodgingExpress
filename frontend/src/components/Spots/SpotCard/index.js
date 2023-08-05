@@ -7,10 +7,10 @@ import { useDispatch } from "react-redux";
 const SpotCard = ({spot}) => {
 
     return (
-        <>
+        <><section>
     <section className="spotCard">
             <section className="spotImage">
-        <img src={spot.previewImage} alt={`${spot.name}`}></img>
+        <img src={spot.previewImage} alt={`${spot.name}`} title={spot.name}></img>
             </section>
         <section className="spotLocation">
         <h3>{`${spot.city}, ${spot.state}`}</h3>
@@ -21,7 +21,7 @@ const SpotCard = ({spot}) => {
         </section>
         <h3 className="price">{`$${spot.price} night`}</h3>
     </section>
-
+    </section>
 
 
         {/* // <h2 className="SpotCard">Spot Card</h2> */}

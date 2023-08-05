@@ -38,10 +38,10 @@ function PostReviewModal({spotId, setHasReview}){
     return (
         <section className="reviewModalContainer">
             <form onSubmit={handleSubmit}>
-            <h3>How was your stay?</h3>
-
+            <h3 className="stay">How was your stay?</h3>
+            <>{errors.message}</>
             <label>
-                <input
+                <input className="reviewArea"
                 type="textarea"
                 value={review}
                 onChange={(e) => setReview(e.target.value)}

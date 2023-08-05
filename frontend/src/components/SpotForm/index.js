@@ -94,16 +94,14 @@ const SpotForm = ({spot, spotImages, formType}) => {
     useEffect(() => {},[errors])
     return (
         <>
+        <section className='formContainer'>
         <section className='newSpotForm'>
-
-
         <form onSubmit={handleSubmit}>
         <div>
         <h1>Create a new Spot</h1>
         </div>
         <h2>Where's your place located?</h2>
         <h3>Guests will only get your exact address once they booked a reservation</h3>
-
         <div className="errors">{errors.country}</div>
         <section className='locationDetails'>
         <section className='country'>
@@ -229,7 +227,7 @@ const SpotForm = ({spot, spotImages, formType}) => {
         <button type="submit">{formType}</button>
         </form>
         </section>
-
+        </section>
         </>
     )
 

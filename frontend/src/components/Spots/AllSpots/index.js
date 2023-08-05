@@ -22,14 +22,14 @@ const AllSpots =() => {
 
         <section className="AllSpotsContainer">
             {spots.map((spot) => (
-
+                <section>
                 <Link to={`/spots/${spot.id}`}
                 key={spot.id}>
                 <SpotCard
                 spot={spot}
                 key={spot.id}/>
                 </Link>
-
+                </section>
             ))}
         </section>
 

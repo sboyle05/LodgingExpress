@@ -1,9 +1,12 @@
-.newSpotForm{
+.formContainer{
     font-family: 'Montserrat', sans-serif;
     display: flex;
     justify-content: center;
+    flex-direction: column;
 
 }
+
+
 
 .errors{
     color: red;
