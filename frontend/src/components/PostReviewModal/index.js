@@ -22,7 +22,7 @@ function PostReviewModal({spotId, setHasReview}){
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors({})
-        // console.log("spotID*****",spotId)
+
         const newReview = { review: review, stars: starRating};
         dispatch(createReview(spotId, newReview))
         .then(() => {
@@ -41,11 +41,11 @@ function PostReviewModal({spotId, setHasReview}){
             <h3 className="stay">How was your stay?</h3>
             <>{errors.message}</>
             <label>
-                <input className="reviewArea"
-                type="textarea"
+                <textarea className="reviewArea"
                 value={review}
+                rows="6"
                 onChange={(e) => setReview(e.target.value)}
-                placeholder="Leave your review here..."></input>
+                placeholder="Leave your review here..."/>
             </label>
 
             <section className="stars">
@@ -53,6 +53,7 @@ function PostReviewModal({spotId, setHasReview}){
             </section>
             <section className="submitRating">
                 <button type="submit"
+                className="submitReviewButton"
                 disabled={submitReviewDisabled}
                 >Submit Your Review</button>
             </section>

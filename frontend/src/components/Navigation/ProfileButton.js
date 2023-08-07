@@ -39,7 +39,7 @@ function ProfileButton({ user }) {
 
   return (
     <>
-
+      <section className="homeButton">
       <button className="button" onClick={openMenu}>
         <span className="bars">
       <i className="fa-solid fa-bars"></i>
@@ -47,17 +47,20 @@ function ProfileButton({ user }) {
       <i className="fa-solid fa-user-large"></i>
       </button>
       <section className="dropdown">
-      <ul className={ulClassName} ref={ulRef}>
+      <ul id="manageId" className={ulClassName} ref={ulRef}>
         <li>Hello, {user.firstName}</li>
-        {/* <li>{user.firstName} {user.lastName}</li>
-        */}
+
          <li>{user.email}</li>
-         <li><Link to='/spots/current'><button onClick={() => setShowMenu(false)}>Manage Spots</button></Link></li>
+
+         <li><Link to='/spots/current'><button className="manSpot"
+         onClick={() => setShowMenu(false)}>Manage Spots</button></Link></li>
         <li>
-         <button onClick={logout}>Log Out</button>
+         <button  className="manSpot2"
+          onClick={logout}>Log Out</button>
         </li>
 
       </ul>
+      </section>
       </section>
     </>
   );

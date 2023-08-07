@@ -64,3 +64,46 @@ img {
     justify-content: space-between;
 
 }
+
+.reviews > button{
+    margin-bottom: 10px;
+    box-shadow: 2px 2px 3px;
+    background-color: rgb(200, 71, 12);
+    color: white;
+    height: 25px;
+    border-radius: 5px;
+    width: 95px;
+}
+.deleteReviewButton{
+    margin-bottom: 10px;
+    box-shadow: 2px 2px 3px;
+    background-color: rgb(200, 71, 12);
+    color: white;
+    height: 25px;
+    border-radius: 5px;
+    width: 110px;
+}
+.delBut{
+    margin-bottom: 10px;
+    box-shadow: 2px 2px 3px;
+    background-color: rgb(200, 71, 12);
+    color: white;
+    height: 25px;
+    border-radius: 5px;
+    width: 110px;
+}
+
+.nametext{
+    font-size: 16px;
+    margin-bottom: 3px;
+}
+
+.date{
+    font-size: 14px;
+    margin-bottom: 3px;
+}
+
+.reviewcss{
+    font-size: 14px;
+    margin-bottom: 3px;
+}

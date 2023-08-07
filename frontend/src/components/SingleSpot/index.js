@@ -22,29 +22,26 @@ const SingleSpot = ()=> {
     const sessionUser = useSelector((state) => state.session.user);
     const [userReviews, setUserReviews] = useState([]);
     const [hasReview, setHasReview] = useState(false)
-    // console.log("USERREVIEWS AT TOP", hasReview)
 
-    // const reviews = useSelector(state=> state.reviews && state.reviews[spotId])
     const reviewIds = useSelector(state => state.reviews.spotReviews && state.reviews.spotReviews[spotId]);
-    // console.log("reviewIds from useSelector",reviewIds)
+
     const allReviews = useSelector(state => state.reviews.reviews);
-    // console.log("allreviews from useSelector", allReviews)
+
     const reviews = reviewIds && reviewIds.map(id => allReviews[id]);
-    // console.log("reviews from useSelector", reviews)
+
     useEffect(() => {
         if(sessionUser){
         dispatch(fetchUserReviews())
             .then(reviews => {
-                // console.log("reviews in fetch", reviews)
 
                const foundReview = Object.values(reviews).find((review) => {
-                    // console.log("FIND REVIEW.SPOT ID",review.spotId === +spotId)
+
                   return review.spotId === +spotId
                 });
                 if(foundReview){
                     setHasReview(true)
                 }
-                // console.log("*(***FOUNDREVIEW", foundReview)
+
             })
             .then(() => dispatch(fetchLoadSpotReviews(spotId)))
         }
@@ -127,16 +124,19 @@ const SingleSpot = ()=> {
                     ? <span>&#x2022;  {spot.numReviews} review</span>
                     : <span> New <h2>Be the first to post a review!</h2></span>
                     }</h1></span>
+
                 {postReviewButton}
-                {/* {console.log("reviews from return", reviews)} */}
+
                 {Array.isArray(reviews) && [...reviews].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).map((review, index) => (
                 <div key ={index}>
-                {review.User?.firstName} {review.User?.lastName} <div>{new Date(review?.createdAt).toISOString().split('T')[0]}</div>
-                {review?.review}
+               <section className="nametext">{review.User?.firstName} {review.User?.lastName}</section> <section className="date"><div>{new Date(review?.createdAt).toISOString().split('T')[0]}</div></section>
+               <section className="reviewcss"> {review?.review}</section>
                 {sessionUser && sessionUser.id === review.userId && (
         <OpenModalButton
-          modalComponent={<DeleteReviewModal reviewId={review.id} onReviewDelete={handleReviewDelete} setHasReview={setHasReview}/>}
-          buttonText="Delete Review"
+            className="deleteReviewButton"
+            modalComponent={<DeleteReviewModal reviewId={review.id} onReviewDelete={handleReviewDelete} setHasReview={setHasReview}/>}
+            buttonText="Delete Review"
+
         />
       )}</div>
              ))}

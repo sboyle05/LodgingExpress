@@ -8,38 +8,11 @@ import { Link } from "react-router-dom";
 function DeleteSpotModal({spotId, closeModal}){
     const dispatch = useDispatch();
 
-    //     const [showMenu, setShowMenu] = useState(false);
-//   const ulRef = useRef();
-
-//   const openMenu = () => {
-//     if (showMenu) return;
-//     setShowMenu(true);
-//   };
-
-//   useEffect(() => {
-//     if (!showMenu) return;
-
-//     const closeMenu = (e) => {
-//       if (!ulRef.current.contains(e.target)) {
-//         setShowMenu(false);
-//       }
-//     };
-
-//     document.addEventListener('click', closeMenu);
-
-//     return () => document.removeEventListener("click", closeMenu);
-//   }, [showMenu]);
-
-//     const dispatch = useDispatch();
-//     const spotId = useParams().id
-//     console.log("SPOT_ID", spotId)
-//     const { closeModal } = useModal();
-
       return (
         <>
         <section className="deleteModal">
             <h1>Confirm Delete</h1>
-            <h2>Are you sure you want to remove this spot from the listings?</h2>
+            <h2 className="deleteConfirm">Are you sure you want to remove this spot from the listings?</h2>
             <section className="deleteButton">
                 <button className='delete'onClick={() => {
                     dispatch(fetchDeleteSpot(spotId))
@@ -47,7 +20,8 @@ function DeleteSpotModal({spotId, closeModal}){
                 }}
                 >Yes (Delete Spot)</button></section>
 
-            <section className="dontDelete"><button className="noDelete"
+            <section className="dontDelete">
+            <button className="noDelete"
             onClick={closeModal}>No (Keep Spot)</button></section>
         </section>
         </>

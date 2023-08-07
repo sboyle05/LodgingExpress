@@ -1,6 +1,9 @@
+
+
 .newSpotForm{
     font-family: 'Montserrat', sans-serif;
     display: flex;
+    justify-content: center;
 
 }
 
@@ -12,6 +15,17 @@
     align-items: flex-start;
 }
 
+.updateSpotButton{
+    margin-top: 10px;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    background-color: rgb(200, 71, 12);
+    color: white;
+    width: 150px;
+    height: 25px;
+    border-radius: 5px;
+}
 
 .errors{
     color: red;
@@ -27,12 +41,10 @@ span{
 .inputfield{
     width: 500px;
 }
-.inputfieldIm{
-    width: 500px;
-    margin-bottom: 3px;
-}
+
 .priceinputfield{
     width: 490px;
+    margin-bottom: 20px;
 }
 
 .state{
@@ -62,6 +74,7 @@ padding-left: 8px;
     display: flex;
     gap: 20px;
     margin-top: 1px;
+    margin-bottom: 12px;
 }
 
 .inputWrapper {
@@ -74,4 +87,9 @@ padding-left: 8px;
     display: flex;
     gap: 10px;
     align-items: center;
+}
+.latlng{
+    display: flex;
+    gap: 20px;
+    margin-top: 1px;
 }

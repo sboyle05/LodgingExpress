@@ -25,12 +25,9 @@ const ManageAllSpots =() => {
         <section className="AllSpotsContainer">
             {spots.map((spot) => (
 
-                // <Link to={`/spots/${spot.id}`}
-                // key={spot.id}>
                 <SpotCard
                 spot={spot}
                 key={spot.id}/>
-                // </Link>
 
             ))}
         </section>

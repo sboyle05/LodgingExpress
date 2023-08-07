@@ -1,7 +1,18 @@
 .newSpot{
     margin-bottom: 10px;
+    box-shadow: 2px 2px 3px;
+    background-color: rgb(200, 71, 12);
+    color: white;
+    height: 25px;
+    border-radius: 5px;
+    width: 140px;
+    margin-left: 10px;
 }
-
+h1{
+    color:  rgb(50, 50, 50);
+    font-family: 'Montserrat', sans-serif;
+    margin-left: 25px;
+}
 .AllSpots {
     /* border: 5px black solid; */
     color: rgb(144, 36, 36);
