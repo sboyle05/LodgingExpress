@@ -11,5 +11,5 @@ The frontend is built on a react-redux framework. CSS was used to style the site
 
 To launch the website you can visit https://lodging-express.onrender.com/ or after npm-i on your local machine you can use npm start to launch in your browser. This requires both the frontend folder and backend folder to be installed and running at the same time.
 
-![image desc](./Screenshot%202023-08-06%20at%2010.05.26%20PM.png)
+
 ![image desc](./Screenshot%202023-08-06%20at%2010.05.36%20PM.png)
