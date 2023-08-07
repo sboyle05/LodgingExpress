@@ -94,20 +94,20 @@ const SpotForm = ({spot, spotImages, formType}) => {
     useEffect(() => {},[errors])
     return (
         <>
-        <section className='formContainer'>
+
         <section className='newSpotForm'>
-        <form onSubmit={handleSubmit}>
+        <form className='createForm' onSubmit={handleSubmit}>
         <div>
         <h1>Create a new Spot</h1>
         </div>
         <h2>Where's your place located?</h2>
         <h3>Guests will only get your exact address once they booked a reservation</h3>
-        <div className="errors">{errors.country}</div>
+
         <section className='locationDetails'>
         <section className='country'>
         <h3>
         Country</h3><span className="errors">{errors.country}</span>
-        <input
+        <input className='inputfield'
         type="text"
         value={country}
         placeholder='Country'
@@ -115,56 +115,77 @@ const SpotForm = ({spot, spotImages, formType}) => {
         </section>
         <section className='address'>
         <h3>
-        Street address</h3>
-        <input
+        Street address</h3><span className="errors">{errors.address}</span>
+        <input className='inputfield'
         type='text'
         value={address}
         placeholder='Address'
         onChange={(e)=> setAddress(e.target.value)}></input>
 
         </section>
+        <br></br>
         <section className='cityState'>
-        <span>
-        City</span><span className="errors">{errors.city}</span>
+    <div className='inputWrapper'>
+        <span className="errors">{errors.city}</span>
+        <label>
+        <span>City</span>
         <input
-        type='text'
-        value={city}
-        placeholder='City'
-        onChange={(e)=> setCity(e.target.value)}></input>
-
-        <span>
-        State</span><span className="errors">{errors.state}</span>
+            type='text'
+            value={city}
+            placeholder='City'
+            onChange={(e) => setCity(e.target.value)}>
+            </input>
+        </label>
+    </div>
+    <div className='state inputWrapper'>
+        <span className="errors">{errors.state}</span>
+        <label>
+        <span>State</span>
         <input
-        type='text'
-        value={state}
-        placeholder='STATE'
-        onChange={(e)=> setState(e.target.value)}></input>
+            type='text'
+            value={state}
+            placeholder='STATE'
+            onChange={(e) => setState(e.target.value)}>
+            </input>
+        </label>
+    </div>
+</section>
 
-        </section>
-        <h3>
-        Latitude</h3><span className="errors">{errors.lat}</span>
-        <input
-        type='number'
-        value={lat}
-        placeholder='Latitude'
-        onChange={(e)=> setLat(e.target.value)}></input>
+<section className='latlng'>
+        <section className='inputWrapper'>
+        <span className="errors">{errors.lat}</span>
+        <label>
+            <span>Latitude</span>
+            <input
+                type='number'
+                value={lat}
+                placeholder='Latitude'
+                onChange={(e) => setLat(e.target.value)}
+            />
+        </label>
+    </section>
 
-        <h3>
-        longitude</h3><span className="errors">{errors.lng}</span>
-        <input
-        type='number'
-        value={lng}
-        placeholder='lngitude'
-        onChange={(e)=> setLng(e.target.value)}></input>
-
-        </section>
+    <section className='inputWrapper'>
+        <span className="errors">{errors.lng}</span>
+        <label>
+            <span>Longitude</span>
+            <input
+                type='number'
+                value={lng}
+                placeholder='Longitude'
+                onChange={(e) => setLng(e.target.value)}
+            />
+        </label>
+    </section>
+</section>
+</section>
         <section className='description'>
         <h2>
         Describe your place to guests </h2>
         <h3>Mention the best features of your space, any special amenities like
             fast wifi or parking, and what you love about the neighborhood.
         </h3>
-        <textarea
+        <textarea className='inputfield'
         value={description}
         placeholder='Please write at least 30 characters'
         onChange={(e)=> setDescription(e.target.value)}></textarea>
@@ -174,7 +195,7 @@ const SpotForm = ({spot, spotImages, formType}) => {
         <h2>
         Create a title for your spot</h2>
         <h3>Catch guests' attention with a spot title that highlights what makes your place special.</h3>
-        <input
+        <input className='inputfield'
         type='text'
         value={name}
         placeholder='Name of your spot'
@@ -185,7 +206,7 @@ const SpotForm = ({spot, spotImages, formType}) => {
         <h2>
         Set a base price for your spot</h2>
         <h3>Competitive pricing can help your listing stand out and rank higher in search results.</h3>
-        <input
+        <span>$ </span><input className='priceinputfield'
         type='number'
         value={price}
         placeholder='Price per night (USD)'
@@ -198,36 +219,37 @@ const SpotForm = ({spot, spotImages, formType}) => {
         <h2>
         Liven up your spot with photos </h2>
         <h3>Submit a link to at least one phot to publish your spot.</h3>
-        <input
+        <input className='inputfieldIm'
         type='text'
         value={previewImage}
         placeholder='Preview Image URL'
         onChange={(e)=> setPreviewImage(e.target.value)}></input><span className="errors">{errors.previewImage}</span>
-        <br></br><input
+        <br></br><input className='inputfieldIm'
         type='text'
         value={image1}
         placeholder='Image URL'
         onChange={(e)=> setImage1(e.target.value)}></input><span className="errors">{errors.image1}</span>
-         <br></br><input
+         <br></br><input className='inputfieldIm'
         type='text'
         value={image2}
         placeholder='Image URL'
         onChange={(e)=> setImage2(e.target.value)}></input><span className="errors">{errors.image2}</span>
-         <br></br><input
+         <br></br><input className='inputfieldIm'
         type='text'
         value={image3}
         placeholder='Image URL'
         onChange={(e)=> setImage3(e.target.value)}></input><span className="errors">{errors.image3}</span>
-         <br></br><input
+         <br></br><input className='inputfieldIm'
         type='text'
         value={image4}
         placeholder='Image URL'
         onChange={(e)=> setImage4(e.target.value)}></input><span className="errors">{errors.image4}</span>
+        </section><section className='butPos'>
+        <button className="submitSpotBut" type="submit">{formType}</button>
         </section>
-        <button type="submit">{formType}</button>
         </form>
         </section>
-        </section>
+
         </>
     )
 

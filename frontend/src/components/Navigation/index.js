@@ -28,10 +28,12 @@ function Navigation({ isLoaded }) {
       <li>
         <OpenModalButton
           buttonText="Log In"
+          className="loginBut"
           modalComponent={<LoginFormModal />}
         />
         <OpenModalButton
           buttonText="Sign Up"
+          className="signupBut"
           modalComponent={<SignupFormModal />}
         />
       </li>

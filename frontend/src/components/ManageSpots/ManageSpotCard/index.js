@@ -1,36 +1,35 @@
-import React, { useState, useEffect, useRef } from "react";
-import './SpotCard.css'
-import {Link} from 'react-router-dom';
-import { useDispatch } from "react-redux";
+import React from "react";
+import './SpotCard.css';
+import { Link } from 'react-router-dom';
+import OpenModalButton from "../../OpenModalButton";
 import DeleteSpotModal from "../../DeleteSpotModal";
-
-
-const SpotCard = ({spot}) => {
-
-    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-
+import { useModal } from "../../../context/Modal";
+const SpotCard = ({ spot }) => {
+    const { closeModal } = useModal();
     return (
         <>
-    <section className="spotCard">
-            <Link to={`/spots/${spot.id}`}>
-            <section className="spotImage">
-        <img src={spot.previewImage} alt={`${spot.name}`}></img>
+            <section className="spotCard">
+                <Link to={`/spots/${spot.id}`}>
+                    <section className="spotImage">
+                        <img src={spot.previewImage} alt={`${spot.name}`}></img>
+                    </section>
+                    <section className="spotLocation">
+                        <h3>{`${spot.city}, ${spot.state}`}</h3>
+                        <h3>{spot.avgRating
+                            ? <span><i className="fa-solid fa-star star-color"></i> {`${spot.avgRating}`}</span>
+                            : <span><i className="fa-solid fa-star star-color"></i> New</span>}</h3>
+                    </section>
+                    <h3 className="price">{`$${spot.price} night`}</h3>
+                </Link>
+                <section className="manageButtons">
+                    <Link to={`/spots/${spot.id}/edit`}><button className="manBut">Update</button></Link>
+                    <OpenModalButton
+                        buttonText="Delete"
+                        className="manBut"
+                        modalComponent={<DeleteSpotModal spotId={spot.id} closeModal={closeModal} />}
+                    />
+                </section>
             </section>
-        <section className="spotLocation">
-        <h3>{`${spot.city}, ${spot.state}`}</h3>
-        <h3><i className="fa-solid fa-star"></i> {`${spot.avgRating}`}</h3>
-
-        </section>
-        <h3 className="price">{`$${spot.price} night`}</h3>
-        </Link>
-        <section className="manageButtons">
-            <Link to={`/spots/${spot.id}/edit`}><button>Update</button></Link>
-            <button onClick={(e) => {
-                e.stopPropagation();
-                setIsDeleteModalOpen(true)}}>Delete</button>
-        </section>
-    </section>
-    {isDeleteModalOpen && <DeleteSpotModal spotId={spot.id} closeModal={() => setIsDeleteModalOpen(false)} />}
         </>
     )
 }

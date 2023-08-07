@@ -30,32 +30,36 @@ function LoginFormModal() {
   return (
     <>
     <section className="loginScreen">
-      <h1>Log In</h1>
+      <h1 className="loginDisplay">Log In</h1>
       <form id='loginForm' onSubmit={handleSubmit}>
-        <label>
-          Username or Email
-          <input
+
+
+          <input className="loginInput"
             type="text"
+            placeholder="Username or Email"
             value={credential}
             onChange={(e) => setCredential(e.target.value)}
             required
           />
-        </label>
-        <label>
-          Password
+
+    <br></br>
+
           <input
             type="password"
+            placeholder="Password"
+            className="loginInput"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-          />
-        </label>
+          /><br></br>
+
         {errors.credential && (
-          <p>{errors.credential}</p>
+          <p className="errorMsg">{errors.credential}</p>
         )}
-        <button type="submit" disabled={loginDisabled}>Log In</button>
+        <button className="loginSubmit" type="submit" disabled={loginDisabled}>Log In</button>
       </form>
-      <button onClick={() => {
+      <button className="loginModal"
+       onClick={() => {
       setCredential('Demo-lition');
         setPassword('password');
         dispatch(sessionActions.login({credential: 'Demo-lition', password: 'password'}))

@@ -1,6 +1,13 @@
 .delete{
     background-color: red;
+    border-radius: 5px;
+    font-family: 'Montserrat', sans-serif;
 }
 .noDelete{
     background-color: darkgray;
+    border-radius: 5px;
+    font-family: 'Montserrat', sans-serif;
+}
+.areYouSure{
+    font-size: 16px;
 }

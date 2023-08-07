@@ -40,3 +40,25 @@
     left: 10rem;
     z-index: 1;
 }
+
+.loginBut{
+    margin-bottom: 10px;
+    box-shadow: 2px 2px 3px;
+    background-color: rgb(200, 71, 12);
+    color: white;
+    height: 25px;
+    border-radius: 5px;
+    width: 75px;
+    margin-left: 4px;
+    margin-right: 2px;
+}
+
+.signupBut{
+    width: 75px;
+    background-color: black;
+    color: white;
+    height: 25px;
+    margin-bottom: 10px;
+    box-shadow: 2px 2px 3px;
+    border-radius: 5px;
+}
