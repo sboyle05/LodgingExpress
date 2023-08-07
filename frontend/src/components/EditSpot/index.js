@@ -1,8 +1,9 @@
+
 import { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import  {useDispatch, useSelector} from 'react-redux';
 import { createSpot, updateSpot } from '../../store/spots';
-import './NewSpotForm.css';
+import './EditSpotForm.css';
 import { fetchReceiveSpot } from "../../store/spots";
 
 
@@ -20,9 +21,8 @@ const EditSpotForm = ({spot, formType}) => {
     const [name, setName] = useState(spot?.name || '');
     const [price, setPrice] = useState(spot?.price || '');
     const spotId = useParams().id;
-    // console.log("spotId**useParams", spotId)
+
     const currentSpot = useSelector(state=>state.spots[spotId])
-    // console.log("****currentSPOT***useSelector",currentSpot)
     // const [previewImage, setPreviewImage] = useState(spot?.previewImage);
     // const [image1, setImage1] = useState(spot?.image1)
     // const [image2, setImage2] = useState(spot?.image2)
@@ -47,7 +47,7 @@ const EditSpotForm = ({spot, formType}) => {
         setPrice(currentSpot?.price || '');
     }, [currentSpot])
 
-    // console.log("SPOT BEFORE SUBMIT", spot)
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors({});
@@ -71,7 +71,6 @@ const EditSpotForm = ({spot, formType}) => {
         //     },
         // ];
 
-        // console.log("****SPOT upon submit****", spot)
         let submitSpot = await dispatch(updateSpot(spot))
 
         if(submitSpot.errors) return setErrors(submitSpot.errors)
@@ -85,19 +84,19 @@ const EditSpotForm = ({spot, formType}) => {
         <section className='newSpotForm'>
 
 
-        <form onSubmit={handleSubmit}>
-        <div>
+        <form className='createForm' onSubmit={handleSubmit}>
+        <section>
         <h1>Update your Spot</h1>
-        </div>
+        </section>
         <h2>Where's your place located?</h2>
         <h3>Guests will only get your exact address once they booked a reservation</h3>
 
-        <div className="errors">{errors.country}</div>
+
         <section className='locationDetails'>
         <section className='country'>
         <h3>
         Country</h3><span className="errors">{errors.country}</span>
-        <input
+        <input className='inputfield'
         type="text"
         value={country}
         placeholder='Country'
@@ -105,56 +104,76 @@ const EditSpotForm = ({spot, formType}) => {
         </section>
         <section className='address'>
         <h3>
-        Street address</h3>
-        <input
+        Street address</h3><span className="errors">{errors.address}</span>
+        <input className='inputfield'
         type='text'
         value={address}
         placeholder='Address'
         onChange={(e)=> setAddress(e.target.value)}></input>
 
         </section>
+        <br></br>
         <section className='cityState'>
-        <span>
-        City</span><span className="errors">{errors.city}</span>
-        <input
-        type='text'
-        value={city}
-        placeholder='City'
-        onChange={(e)=> setCity(e.target.value)}></input>
+    <section className='inputWrapper'>
+        <span className="errors">{errors.city}</span>
+        <label>
+            <span>City</span>
+            <input
+                type='text'
+                value={city}
+                placeholder='City'
+                onChange={(e) => setCity(e.target.value)}>
+            </input>
+        </label>
+    </section>
+    <section className='state inputWrapper'>
+        <span className="errors">{errors.state}</span>
+        <label>
+            <span>State</span>
+            <input
+                type='text'
+                value={state}
+                placeholder='STATE'
+                onChange={(e) => setState(e.target.value)}>
+            </input>
+            </label>
+            </section>
+            </section>
+        <section className='latlng'>
+        <section className='inputWrapper'>
+        <span className="errors">{errors.lat}</span>
+        <label>
+            <span>Latitude</span>
+            <input
+                type='number'
+                value={lat}
+                placeholder='Latitude'
+                onChange={(e) => setLat(e.target.value)}
+            />
+        </label>
+    </section>
 
-        <span>
-        State</span><span className="errors">{errors.state}</span>
-        <input
-        type='text'
-        value={state}
-        placeholder='STATE'
-        onChange={(e)=> setState(e.target.value)}></input>
-
-        </section>
-        <h3>
-        Latitude</h3><span className="errors">{errors.lat}</span>
-        <input
-        type='number'
-        value={lat}
-        placeholder='Latitude'
-        onChange={(e)=> setLat(e.target.value)}></input>
-
-        <h3>
-        longitude</h3><span className="errors">{errors.lng}</span>
-        <input
-        type='number'
-        value={lng}
-        placeholder='lngitude'
-        onChange={(e)=> setLng(e.target.value)}></input>
-
-        </section>
+    <section className='inputWrapper'>
+        <span className="errors">{errors.lng}</span>
+        <label>
+            <span>Longitude</span>
+            <input
+                type='number'
+                value={lng}
+                placeholder='Longitude'
+                onChange={(e) => setLng(e.target.value)}
+            />
+        </label>
+    </section>
+</section>
+</section>
         <section className='description'>
         <h2>
         Describe your place to guests </h2>
         <h3>Mention the best features of your space, any special amenities like
             fast wifi or parking, and what you love about the neighborhood.
         </h3>
-        <textarea
+        <textarea className='inputfield'
         value={description}
         placeholder='What makes your spot, THE SPOT?'
         onChange={(e)=> setDescription(e.target.value)}></textarea>
@@ -163,7 +182,7 @@ const EditSpotForm = ({spot, formType}) => {
         <section className='spotName'>
         <h2>
         Create a title for your spot</h2>
-        <input
+        <input className='inputfield'
         type='text'
         value={name}
         placeholder='Name of your spot'
@@ -173,7 +192,7 @@ const EditSpotForm = ({spot, formType}) => {
         <section className='price'>
         <h2>
         Set a base price for your spot</h2>
-        <input
+        <input className='priceinputfield'
         type='number'
         value={price}
         placeholder='Price per night (USD)'
@@ -212,7 +231,7 @@ const EditSpotForm = ({spot, formType}) => {
         placeholder='Image URL'
         onChange={(e)=> setImage4(e.target.value)}></input>
         </section> */}
-        <button type="submit">Update Form</button>
+        <button className='updateSpotButton' type="submit">Update Form</button>
         </form>
         </section>
 

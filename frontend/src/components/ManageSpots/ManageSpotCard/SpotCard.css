@@ -1,7 +1,5 @@
-
-
 .SpotCard{
-
+    text-decoration: none;
     width: 215px;
     height: 250px;
     display: flex;
@@ -32,17 +30,36 @@ img {
     font-size: 12px;
     font-weight: 900;
     width: 215px;
+    text-decoration: none;
 
 }
 
 .price {
     font-family: 'Montserrat', sans-serif;
     font-size: 12px;
+    text-decoration: none;
 }
 
-button{
+/* button{
     font-family: 'Montserrat', sans-serif;
     margin-right: 3px;
     font-size: 12px;
+    text-decoration: none;
+    background-color: rgb(200, 71, 12);
+    margin: 3px;
 
+} */
+
+.manBut{
+    box-shadow: 2px 2px 3px;
+    background-color: rgb(200, 71, 12);
+    color: white;
+    width: 75px;
+    height: 25px;
+    border-radius: 5px;
+    margin: 1px;
 }
+
+.star-color{
+    color: rgb(200, 71, 12);
+    }
