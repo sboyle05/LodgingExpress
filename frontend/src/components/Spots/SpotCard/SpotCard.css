@@ -1,20 +1,16 @@
 
 
 .SpotCard{
-    text-decoration: none;
-    width: 215px;
-    height: 250px;
-    display: flex;
-    align-items: flex-start;
-    overflow: hidden;
-    margin-right: 10px;
-    margin-left: 10px;
-    padding: 10px;
+    display: grid;
+    margin-bottom: 3px;
+    position: relative;
+
 }
 .spotImage{
-    width: 215px;
-    height: 215px;
-    flex-shrink: 0;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1/1;
+    position: relative;
 
 }
 img {
@@ -30,7 +26,8 @@ img {
     font-family: 'Montserrat', sans-serif;
     font-size: 12px;
     font-weight: 900;
-    width: 215px;
+    width: 95%;
+    padding-left: 5px;
 
 }
 
@@ -46,4 +43,28 @@ h3{
 
 .star-color{
 color: rgb(200, 71, 12);
+}
+
+.nameTip{
+    z-index: 1000;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity .5s;
+    background-color: rgb(144, 36, 36);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 12px;
+    left: 50%;
+    max-width: 100%;
+    padding: 5px 10px;
+    position: absolute;
+    transform: translateX(-50%) translateY(-100%);
+    top: 1rem;
+    visibility: hidden;
+    width: max-content;
+}
+
+.spotCard:hover .nameTip {
+    opacity: 1;
+    visibility: visible;
 }

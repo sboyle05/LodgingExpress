@@ -8,18 +8,18 @@ const SpotCard = ({ spot }) => {
     const { closeModal } = useModal();
     return (
         <>
-            <section className="spotCard">
+            <section className="manspotCard">
                 <Link to={`/spots/${spot.id}`}>
-                    <section className="spotImage">
+                    <section className="manspotImage">
                         <img src={spot.previewImage} alt={`${spot.name}`}></img>
                     </section>
-                    <section className="spotLocation">
+                    <section className="manspotLocation">
                         <h3>{`${spot.city}, ${spot.state}`}</h3>
                         <h3>{spot.avgRating
                             ? <span><i className="fa-solid fa-star star-color"></i> {`${spot.avgRating}`}</span>
                             : <span><i className="fa-solid fa-star star-color"></i> New</span>}</h3>
                     </section>
-                    <h3 className="price">{`$${spot.price} night`}</h3>
+                    <h3 className="manprice">{`$${spot.price} night`}</h3>
                 </Link>
                 <section className="manageButtons">
                     <Link to={`/spots/${spot.id}/edit`}><button className="manBut">Update</button></Link>
