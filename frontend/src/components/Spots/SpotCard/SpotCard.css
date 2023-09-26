@@ -52,13 +52,14 @@ color: rgb(200, 71, 12);
     transition: opacity .5s;
     background-color: rgb(144, 36, 36);
     border-radius: 10px;
+    /* font-family: 'Montserrat', sans-serif; */
     color: #fff;
     font-size: 12px;
     left: 50%;
     max-width: 100%;
     padding: 5px 10px;
     position: absolute;
-    transform: translateX(-50%) translateY(-100%);
+    transform: translateX(-50%) translateY(1025%);
     top: 1rem;
     visibility: hidden;
     width: max-content;
