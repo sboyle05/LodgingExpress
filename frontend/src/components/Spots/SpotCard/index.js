@@ -10,7 +10,8 @@ const SpotCard = ({spot}) => {
         <>
     <section className="spotCard">
             <section className="spotImage">
-        <img src={spot.previewImage} alt={`${spot.name}`} title={spot.name}></img>
+            <span className="nameTip">{`${spot.name}`}</span>
+        <img className="spotCardImg" src={spot.previewImage} alt={`${spot.name}`} ></img> {/*title={spot.name} removed from directly after alt while testing new tip*/}
             </section>
         <section className="spotLocation">
         <h3>{`${spot.city}, ${spot.state}`}</h3>
@@ -20,6 +21,7 @@ const SpotCard = ({spot}) => {
 
         </section>
         <h3 className="price">{`$${spot.price} night`}</h3>
+
     </section>
 
         </>

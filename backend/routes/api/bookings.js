@@ -51,7 +51,17 @@ router.get('/current', requireAuth, async (req, res, next)=> {
     res.json({ Bookings: bookingsWithSpotPreview });
 })
 
+router.post('/', requireAuth, async (req, res, next) => {
+    const { userId, spotId, startDate, endDate } = req.body;
+    const newBooking = { userId, spotId, startDate, endDate };
 
+    try {
+        const booking = await Booking.create(newBooking);
+        res.status(201).json(booking);
+    } catch (e) {
+        next(e);
+    }
+});
 
 router.put('/:bookingId', requireAuth, async (req, res, next) => {
     const bookingId = req.params.bookingId;
